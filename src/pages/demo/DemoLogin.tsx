@@ -78,7 +78,7 @@ export default function DemoLogin() {
         {/* Role Cards */}
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 mb-8">
           {roles.map((item) => (
-            <Card key={item.role} className="bg-card/95 backdrop-blur border-slate-700 hover:border-slate-600 transition-colors">
+            <Card key={item.role} className="bg-white/10 backdrop-blur-xl border-white/20 hover:border-white/30 hover:bg-white/15 transition-all shadow-lg">
               <CardHeader>
                 <div className="flex items-start gap-4">
                   <div className={`p-3 rounded-lg ${item.color}`}>
@@ -112,7 +112,7 @@ export default function DemoLogin() {
         </div>
 
         {/* Attorney Application Demo Card */}
-        <Card className="max-w-4xl mx-auto mb-8 bg-card/95 backdrop-blur border-emerald-500/30 hover:border-emerald-500/50 transition-colors">
+        <Card className="max-w-4xl mx-auto mb-8 bg-white/10 backdrop-blur-xl border-emerald-500/30 hover:border-emerald-500/50 hover:bg-white/15 transition-all shadow-lg">
           <CardContent className="flex flex-col md:flex-row items-center justify-between gap-6 p-6">
             <div className="flex items-start gap-4">
               <div className="p-3 rounded-lg text-emerald-600 bg-emerald-100">
@@ -146,7 +146,7 @@ export default function DemoLogin() {
         </Card>
 
         {/* Client Referral Demo Card */}
-        <Card className="max-w-4xl mx-auto mb-8 bg-card/95 backdrop-blur border-amber-500/30 hover:border-amber-500/50 transition-colors">
+        <Card className="max-w-4xl mx-auto mb-8 bg-white/10 backdrop-blur-xl border-amber-500/30 hover:border-amber-500/50 hover:bg-white/15 transition-all shadow-lg">
           <CardContent className="flex flex-col md:flex-row items-center justify-between gap-6 p-6">
             <div className="flex items-start gap-4">
               <div className="p-3 rounded-lg text-amber-600 bg-amber-100">
