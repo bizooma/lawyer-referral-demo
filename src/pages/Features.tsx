@@ -2,7 +2,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SEO } from "@/components/SEO";
-import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { ServiceSchema, BreadcrumbSchema, FAQPageSchema } from "@/components/StructuredData";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { 
   LayoutDashboard, 
   Users, 
@@ -95,6 +101,29 @@ const additionalFeatures = [
   { icon: Lock, title: "Role-Based Access", description: "Granular permissions for different user types" },
 ];
 
+const featuresFaqs = [
+  {
+    question: "How does the smart attorney matching work?",
+    answer: "The matching engine evaluates multiple criteria you define: practice area expertise, geographic coverage, language capabilities, current capacity, and any custom eligibility rules. Attorneys are scored and ranked, giving intake staff clear recommendations while maintaining your program's control over final assignments."
+  },
+  {
+    question: "Can we import our existing attorney roster?",
+    answer: "Yes, we support bulk import from CSV files or can help migrate data from your existing system. The import process validates bar numbers, practice areas, and contact information to ensure data quality."
+  },
+  {
+    question: "What reports can we generate?",
+    answer: "Pre-built reports include intake volume by practice area, referral outcomes, attorney utilization, payment summaries, and compliance audit logs. All reports can be exported to CSV or PDF, and custom reports can be configured based on your needs."
+  },
+  {
+    question: "How does the payment logging feature work?",
+    answer: "For programs that collect referral fees, you can record payment amounts, methods, and dates directly in the intake record. The system tracks payment status and generates payment reports, but does not process actual payments—keeping your existing payment workflows intact."
+  },
+  {
+    question: "Is there an API for integration with other systems?",
+    answer: "Yes, a RESTful API is available for integration with case management systems, CRMs, or custom applications. API access includes authentication, rate limiting, and comprehensive documentation."
+  }
+];
+
 export default function Features() {
   return (
     <div className="flex flex-col">
@@ -110,6 +139,7 @@ export default function Features() {
           { name: "Features", url: "/features" }
         ]}
       />
+      <FAQPageSchema faqs={featuresFaqs} />
       
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
@@ -187,8 +217,36 @@ export default function Features() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* FAQ Section */}
       <section className="py-16 lg:py-24">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Feature Questions Answered
+              </h2>
+              <p className="mt-4 text-lg text-muted-foreground">
+                Common questions about platform capabilities
+              </p>
+            </div>
+            <Accordion type="single" collapsible className="w-full">
+              {featuresFaqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 lg:py-24 bg-muted/30">
         <div className="section-container text-center">
           <h2 className="text-3xl font-bold tracking-tight">See These Features in Action</h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
