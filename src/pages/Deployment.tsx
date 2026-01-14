@@ -89,7 +89,7 @@ export default function Deployment() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>How can I deploy lawyer referral software?</strong> Bar Bridge Connect offers two deployment options. First, a standalone portal gives you a branded referral website on your own subdomain, like referrals.countybar.org. Second, an embedded widget lets you add the intake form directly to your existing website. Both options are fully managed with enterprise-grade security.
+              <strong>How can I deploy lawyer referral software?</strong> Lawyer Referral Program offers two deployment options. First, a standalone portal gives you a branded referral website on your own subdomain, like referrals.countybar.org. Second, an embedded widget lets you add the intake form directly to your existing website. Both options are fully managed with enterprise-grade security.
             </p>
           </div>
         </div>

@@ -146,7 +146,7 @@ export default function PublicClientIntake() {
               <Scale className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="font-bold text-lg">Bar Bridge Connect</h1>
+              <h1 className="font-bold text-lg">Lawyer Referral Program</h1>
               <p className="text-xs text-muted-foreground">Attorney Referral Service</p>
             </div>
           </div>

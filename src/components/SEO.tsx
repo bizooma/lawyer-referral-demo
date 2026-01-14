@@ -9,7 +9,7 @@ interface SEOProps {
   noindex?: boolean;
 }
 
-const SITE_NAME = "Bar Bridge Connect";
+const SITE_NAME = "Lawyer Referral Program";
 const DEFAULT_IMAGE = "https://bar-bridge-connect.lovable.app/og-image.png";
 const SITE_URL = "https://bar-bridge-connect.lovable.app";
 

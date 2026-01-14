@@ -44,7 +44,7 @@ export default function Contact() {
         ]}
       />
       <WebPageSchema
-        name="Contact Bar Bridge Connect"
+        name="Contact Lawyer Referral Program"
         description="Get in touch to schedule a demo or ask questions about lawyer referral software"
         speakableSelectors={[".voice-contact-intro"]}
       />
@@ -66,7 +66,7 @@ export default function Contact() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>How do I get started with Bar Bridge Connect?</strong> Contact us to schedule a personalized demo. We'll show you how the platform works and discuss your organization's specific needs. Email us at hello@lawyerreferralprogram.com or call (555) 123-4567. Most demos take about 30 minutes and include a Q&A session.
+              <strong>How do I get started with Lawyer Referral Program?</strong> Contact us to schedule a personalized demo. We'll show you how the platform works and discuss your organization's specific needs. Email us at hello@lawyerreferralprogram.com or call (555) 123-4567. Most demos take about 30 minutes and include a Q&A session.
             </p>
           </div>
         </div>

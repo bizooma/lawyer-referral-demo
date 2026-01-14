@@ -81,7 +81,7 @@ export default function HowItWorks() {
     <div className="flex flex-col">
       <SEO
         title="How Lawyer Referral Matching Works"
-        description="See how Bar Bridge Connect automates client intake, matches them with qualified attorneys, and tracks referrals from start to completion."
+        description="See how Lawyer Referral Program automates client intake, matches them with qualified attorneys, and tracks referrals from start to completion."
         canonical="/how-it-works"
       />
       <HowToSchema
