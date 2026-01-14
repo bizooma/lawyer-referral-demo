@@ -152,16 +152,22 @@ export default function DemoTour({ onComplete }: DemoTourProps) {
               <div className="flex items-center gap-2">
                 <div className="flex gap-1.5">
                   {tourSteps.map((_, index) => (
-                    <div
+                    <button
                       key={index}
+                      onClick={() => {
+                        if (index !== currentStep) {
+                          animateTransition(index, index > currentStep ? 'next' : 'prev');
+                        }
+                      }}
                       className={cn(
-                        "h-1.5 rounded-full transition-all duration-500 ease-out",
+                        "h-1.5 rounded-full transition-all duration-500 ease-out cursor-pointer hover:opacity-80",
                         index === currentStep 
                           ? 'bg-primary w-8 shadow-[0_0_10px_hsl(var(--primary)/0.5)]' 
                           : index < currentStep 
-                            ? 'bg-primary/60 w-6' 
-                            : 'bg-white/20 w-6'
+                            ? 'bg-primary/60 w-6 hover:bg-primary/80' 
+                            : 'bg-white/20 w-6 hover:bg-white/40'
                       )}
+                      aria-label={`Go to step ${index + 1}: ${tourSteps[index].title}`}
                     />
                   ))}
                 </div>
