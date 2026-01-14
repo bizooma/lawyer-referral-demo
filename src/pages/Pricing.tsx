@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
+import { FAQPageSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { CheckCircle, ArrowRight } from "lucide-react";
 
 const tiers = [
@@ -76,6 +78,19 @@ const faqs = [
 export default function Pricing() {
   return (
     <div className="flex flex-col">
+      <SEO
+        title="Pricing - Local, Regional & Statewide Plans"
+        description="Flexible pricing for bar associations of all sizes. From local bars to statewide programs, find the right plan for your referral service."
+        canonical="/pricing"
+      />
+      <FAQPageSchema faqs={faqs} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Pricing", url: "/pricing" }
+        ]}
+      />
+      
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
         <div className="section-container text-center">

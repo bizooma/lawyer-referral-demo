@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
+import { BreadcrumbSchema } from "@/components/StructuredData";
 import { 
   Globe, 
   Code, 
@@ -53,6 +55,18 @@ const infrastructureFeatures = [
 export default function Deployment() {
   return (
     <div className="flex flex-col">
+      <SEO
+        title="Deployment Options - Standalone Portal or Widget"
+        description="Deploy as a branded standalone portal or embed into your existing website. Enterprise-grade hosting with white-label customization."
+        canonical="/deployment"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Deployment", url: "/deployment" }
+        ]}
+      />
+      
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
         <div className="section-container text-center">

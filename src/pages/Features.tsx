@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
+import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { 
   LayoutDashboard, 
   Users, 
@@ -96,6 +98,19 @@ const additionalFeatures = [
 export default function Features() {
   return (
     <div className="flex flex-col">
+      <SEO
+        title="Features - Attorney Matching, Intake & Reporting"
+        description="Explore powerful features including smart attorney matching, multi-step intake wizards, compliance tracking, and comprehensive reporting."
+        canonical="/features"
+      />
+      <ServiceSchema />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Features", url: "/features" }
+        ]}
+      />
+      
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
         <div className="section-container text-center">
