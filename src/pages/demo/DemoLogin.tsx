@@ -68,7 +68,7 @@ export default function DemoLogin() {
 
           <div className="flex items-center gap-3 mb-4">
             <Scale className="h-10 w-10 text-primary" />
-            <h1 className="text-3xl font-bold text-white">ReferEase Demo</h1>
+            <h1 className="text-3xl font-bold text-white">LawyerReferral Demo</h1>
           </div>
 
           <p className="text-slate-300 text-lg">

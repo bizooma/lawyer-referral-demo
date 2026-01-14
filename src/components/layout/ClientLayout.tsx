@@ -61,7 +61,7 @@ export function ClientLayout() {
           {/* Logo */}
           <div className="flex items-center gap-2 px-6 py-4 border-b">
             <Scale className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">ReferEase</span>
+            <span className="font-semibold text-lg">LawyerReferral</span>
           </div>
 
           {/* Navigation */}

@@ -14,7 +14,7 @@ interface TourStep {
 const tourSteps: TourStep[] = [
   {
     target: 'welcome',
-    title: 'Welcome to ReferEase Demo! 👋',
+    title: 'Welcome to LawyerReferral Demo! 👋',
     content: 'This guided tour will walk you through the different ways you can explore our attorney referral platform.',
     position: 'center',
   },
