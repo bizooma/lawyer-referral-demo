@@ -30,7 +30,7 @@ Disallow: /demo/attorney/availability
 Allow: /demo$
 
 # Sitemap location
-Sitemap: https://bar-bridge-connect.lovable.app/sitemap.xml
+Sitemap: https://lawyerreferralprogram.com/sitemap.xml
 
 # Crawl-delay (optional, be nice to servers)
 Crawl-delay: 1

@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-const SITE_URL = "https://bar-bridge-connect.lovable.app";
+const SITE_URL = "https://lawyerreferralprogram.com";
 
 // Organization Schema
 export function OrganizationSchema() {
