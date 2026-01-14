@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MarketingLayout } from "@/components/layout/MarketingLayout";
 import { DemoLayout } from "@/components/layout/DemoLayout";
+import { ClientLayout } from "@/components/layout/ClientLayout";
+import { AttorneyLayout } from "@/components/layout/AttorneyLayout";
 import { DemoAuthProvider } from "@/contexts/DemoAuthContext";
 import Home from "./pages/Home";
 import HowItWorks from "./pages/HowItWorks";
@@ -14,6 +16,7 @@ import Ethics from "./pages/Ethics";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+// Demo - Staff
 import DemoLogin from "./pages/demo/DemoLogin";
 import Dashboard from "./pages/demo/Dashboard";
 import IntakeWizard from "./pages/demo/IntakeWizard";
@@ -22,6 +25,17 @@ import AttorneyDirectory from "./pages/demo/AttorneyDirectory";
 import Reports from "./pages/demo/Reports";
 import Settings from "./pages/demo/Settings";
 import GuidedTour from "./pages/demo/GuidedTour";
+// Demo - Client
+import ClientDashboard from "./pages/demo/client/ClientDashboard";
+import ClientReferrals from "./pages/demo/client/ClientReferrals";
+import ClientIntakeWizard from "./pages/demo/client/ClientIntakeWizard";
+import ClientProfile from "./pages/demo/client/ClientProfile";
+// Demo - Attorney
+import AttorneyDashboard from "./pages/demo/attorney/AttorneyDashboard";
+import AttorneyReferrals from "./pages/demo/attorney/AttorneyReferrals";
+import AttorneyProfile from "./pages/demo/attorney/AttorneyProfile";
+import AttorneyAvailability from "./pages/demo/attorney/AttorneyAvailability";
+import AttorneySignup from "./pages/demo/attorney/AttorneySignup";
 
 const queryClient = new QueryClient();
 
@@ -43,8 +57,12 @@ const App = () => (
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/contact" element={<Contact />} />
             </Route>
-            {/* Demo Application */}
+
+            {/* Demo Application - Login & Signup */}
             <Route path="/demo" element={<DemoLogin />} />
+            <Route path="/demo/attorney/signup" element={<AttorneySignup />} />
+
+            {/* Demo - Staff Portal (Intake Specialist & Program Admin) */}
             <Route element={<DemoLayout />}>
               <Route path="/demo/dashboard" element={<Dashboard />} />
               <Route path="/demo/intake" element={<IntakeWizard />} />
@@ -54,6 +72,23 @@ const App = () => (
               <Route path="/demo/settings" element={<Settings />} />
               <Route path="/demo/tour" element={<GuidedTour />} />
             </Route>
+
+            {/* Demo - Client Portal */}
+            <Route element={<ClientLayout />}>
+              <Route path="/demo/client/dashboard" element={<ClientDashboard />} />
+              <Route path="/demo/client/referrals" element={<ClientReferrals />} />
+              <Route path="/demo/client/intake" element={<ClientIntakeWizard />} />
+              <Route path="/demo/client/profile" element={<ClientProfile />} />
+            </Route>
+
+            {/* Demo - Attorney Portal */}
+            <Route element={<AttorneyLayout />}>
+              <Route path="/demo/attorney/dashboard" element={<AttorneyDashboard />} />
+              <Route path="/demo/attorney/referrals" element={<AttorneyReferrals />} />
+              <Route path="/demo/attorney/profile" element={<AttorneyProfile />} />
+              <Route path="/demo/attorney/availability" element={<AttorneyAvailability />} />
+            </Route>
+
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

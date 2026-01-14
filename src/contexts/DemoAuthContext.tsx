@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
-export type DemoRole = 'intake_specialist' | 'program_admin';
+export type DemoRole = 'intake_specialist' | 'program_admin' | 'client' | 'attorney';
 
 interface DemoUser {
   id: string;
@@ -79,4 +79,15 @@ export function useDemoAuth() {
     throw new Error('useDemoAuth must be used within a DemoAuthProvider');
   }
   return context;
+}
+
+export function getDashboardPath(role: DemoRole): string {
+  switch (role) {
+    case 'client':
+      return '/demo/client/dashboard';
+    case 'attorney':
+      return '/demo/attorney/dashboard';
+    default:
+      return '/demo/dashboard';
+  }
 }
