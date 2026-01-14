@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useAttorneyReferrals } from '@/hooks/useAttorneyReferrals';
+import { useState, useEffect } from 'react';
+import { useAttorneyReferrals, useAttorneyProfile } from '@/hooks/useAttorneyReferrals';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -18,6 +18,9 @@ import { Users, Search, Phone, Mail, MapPin, Calendar, CheckCircle, XCircle, Mes
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { useQueryClient } from '@tanstack/react-query';
+import { useDemoAuth } from '@/contexts/DemoAuthContext';
 
 const statusColors: Record<string, string> = {
   new: 'bg-blue-100 text-blue-800',
@@ -27,13 +30,44 @@ const statusColors: Record<string, string> = {
   closed: 'bg-gray-100 text-gray-800',
 };
 
+type ActionType = 'accept' | 'decline' | 'contact' | null;
+
 export default function AttorneyReferrals() {
+  const { user } = useDemoAuth();
+  const { data: profile } = useAttorneyProfile();
   const { data: referrals, isLoading } = useAttorneyReferrals();
+  const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedReferral, setSelectedReferral] = useState<any>(null);
-  const [actionType, setActionType] = useState<'accept' | 'decline' | 'contact' | null>(null);
+  const [actionType, setActionType] = useState<ActionType>(null);
   const [notes, setNotes] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  // Subscribe to real-time updates for referrals assigned to this attorney
+  useEffect(() => {
+    if (!profile?.attorney_id) return;
+
+    const channel = supabase
+      .channel('attorney-referrals')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'intakes',
+          filter: `assigned_attorney_id=eq.${profile.attorney_id}`,
+        },
+        () => {
+          queryClient.invalidateQueries({ queryKey: ['attorney-referrals'] });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [profile?.attorney_id, queryClient]);
 
   const filteredReferrals = referrals?.filter((r) => {
     const matchesSearch =
@@ -44,12 +78,89 @@ export default function AttorneyReferrals() {
   }) || [];
 
   const handleAction = async () => {
-    // Simulate action
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast.success(`Referral ${actionType === 'accept' ? 'accepted' : actionType === 'decline' ? 'declined' : 'marked as contacted'} (Demo)`);
-    setActionType(null);
-    setSelectedReferral(null);
-    setNotes('');
+    if (!selectedReferral || !profile?.attorney_id) return;
+
+    setIsProcessing(true);
+    try {
+      // Map action type to referral status
+      const statusMap: Record<string, 'accepted' | 'declined' | 'contacted'> = {
+        accept: 'accepted',
+        decline: 'declined',
+        contact: 'contacted',
+      };
+
+      const newStatus = statusMap[actionType!];
+
+      // Check if a response already exists
+      const { data: existingResponse } = await supabase
+        .from('referral_responses')
+        .select('id')
+        .eq('intake_id', selectedReferral.id)
+        .eq('attorney_id', profile.attorney_id)
+        .maybeSingle();
+
+      if (existingResponse) {
+        // Update existing response
+        await supabase
+          .from('referral_responses')
+          .update({
+            status: newStatus,
+            response_date: new Date().toISOString(),
+            notes: notes || null,
+          })
+          .eq('id', existingResponse.id);
+      } else {
+        // Create new response
+        await supabase
+          .from('referral_responses')
+          .insert({
+            intake_id: selectedReferral.id,
+            attorney_id: profile.attorney_id,
+            status: newStatus,
+            response_date: new Date().toISOString(),
+            notes: notes || null,
+          });
+      }
+
+      // Update intake status based on action
+      if (actionType === 'accept' || actionType === 'contact') {
+        await supabase
+          .from('intakes')
+          .update({ status: 'referred' })
+          .eq('id', selectedReferral.id);
+      } else if (actionType === 'decline') {
+        // If declined, set back to pending_match so they can find another attorney
+        await supabase
+          .from('intakes')
+          .update({ 
+            status: 'pending_match',
+            assigned_attorney_id: null 
+          })
+          .eq('id', selectedReferral.id);
+      }
+
+      // Invalidate queries to refresh data
+      queryClient.invalidateQueries({ queryKey: ['attorney-referrals'] });
+      queryClient.invalidateQueries({ queryKey: ['referral-responses'] });
+      queryClient.invalidateQueries({ queryKey: ['pending-referrals'] });
+
+      toast.success(
+        actionType === 'accept'
+          ? 'Referral accepted! The client has been notified.'
+          : actionType === 'decline'
+          ? 'Referral declined. The client will be matched with another attorney.'
+          : 'Client marked as contacted!'
+      );
+
+      setActionType(null);
+      setSelectedReferral(null);
+      setNotes('');
+    } catch (error) {
+      console.error('Error processing action:', error);
+      toast.error('Failed to process action. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (isLoading) {
@@ -93,8 +204,8 @@ export default function AttorneyReferrals() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Status</SelectItem>
-            <SelectItem value="new">New</SelectItem>
-            <SelectItem value="referred">Referred</SelectItem>
+            <SelectItem value="matched">Pending Response</SelectItem>
+            <SelectItem value="referred">Accepted</SelectItem>
             <SelectItem value="closed">Closed</SelectItem>
           </SelectContent>
         </Select>
@@ -123,7 +234,7 @@ export default function AttorneyReferrals() {
                     </CardDescription>
                   </div>
                   <Badge className={statusColors[referral.status || 'new']}>
-                    {referral.status}
+                    {referral.status === 'matched' ? 'Pending Response' : referral.status}
                   </Badge>
                 </div>
               </CardHeader>
@@ -155,40 +266,49 @@ export default function AttorneyReferrals() {
                   )}
                 </div>
 
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    onClick={() => {
-                      setSelectedReferral(referral);
-                      setActionType('accept');
-                    }}
-                  >
-                    <CheckCircle className="h-4 w-4 mr-1" />
-                    Accept
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => {
-                      setSelectedReferral(referral);
-                      setActionType('contact');
-                    }}
-                  >
-                    <MessageSquare className="h-4 w-4 mr-1" />
-                    Mark Contacted
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={() => {
-                      setSelectedReferral(referral);
-                      setActionType('decline');
-                    }}
-                  >
-                    <XCircle className="h-4 w-4 mr-1" />
-                    Decline
-                  </Button>
-                </div>
+                {referral.status === 'matched' && (
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        setSelectedReferral(referral);
+                        setActionType('accept');
+                      }}
+                    >
+                      <CheckCircle className="h-4 w-4 mr-1" />
+                      Accept
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setSelectedReferral(referral);
+                        setActionType('contact');
+                      }}
+                    >
+                      <MessageSquare className="h-4 w-4 mr-1" />
+                      Mark Contacted
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => {
+                        setSelectedReferral(referral);
+                        setActionType('decline');
+                      }}
+                    >
+                      <XCircle className="h-4 w-4 mr-1" />
+                      Decline
+                    </Button>
+                  </div>
+                )}
+
+                {referral.status === 'referred' && (
+                  <div className="flex items-center gap-2 text-sm text-green-600">
+                    <CheckCircle className="h-4 w-4" />
+                    You accepted this referral
+                  </div>
+                )}
               </CardContent>
             </Card>
           ))}
@@ -208,7 +328,7 @@ export default function AttorneyReferrals() {
       )}
 
       {/* Action Dialog */}
-      <Dialog open={!!actionType} onOpenChange={() => setActionType(null)}>
+      <Dialog open={!!actionType} onOpenChange={() => { setActionType(null); setNotes(''); }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
@@ -217,9 +337,9 @@ export default function AttorneyReferrals() {
               {actionType === 'contact' && 'Mark as Contacted'}
             </DialogTitle>
             <DialogDescription>
-              {actionType === 'accept' && 'Confirm that you will take on this client.'}
-              {actionType === 'decline' && 'Let us know why you cannot take this referral.'}
-              {actionType === 'contact' && 'Confirm that you have contacted the client.'}
+              {actionType === 'accept' && 'The client will be notified that you will be representing them.'}
+              {actionType === 'decline' && 'The client will be matched with another attorney.'}
+              {actionType === 'contact' && 'Confirm that you have reached out to the client.'}
             </DialogDescription>
           </DialogHeader>
           <div className="py-4">
@@ -231,16 +351,21 @@ export default function AttorneyReferrals() {
             />
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setActionType(null)}>
+            <Button variant="outline" onClick={() => { setActionType(null); setNotes(''); }}>
               Cancel
             </Button>
             <Button
               onClick={handleAction}
               variant={actionType === 'decline' ? 'destructive' : 'default'}
+              disabled={isProcessing}
             >
-              {actionType === 'accept' && 'Accept'}
-              {actionType === 'decline' && 'Decline'}
-              {actionType === 'contact' && 'Confirm'}
+              {isProcessing ? 'Processing...' : (
+                <>
+                  {actionType === 'accept' && 'Accept Referral'}
+                  {actionType === 'decline' && 'Decline Referral'}
+                  {actionType === 'contact' && 'Confirm Contact'}
+                </>
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>

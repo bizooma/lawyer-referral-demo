@@ -1,11 +1,15 @@
+import { useEffect } from 'react';
 import { useDemoAuth } from '@/contexts/DemoAuthContext';
 import { useClientIntakes } from '@/hooks/useClientIntakes';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Clock, CheckCircle, User, ArrowRight, Phone, Mail } from 'lucide-react';
+import { FileText, Clock, CheckCircle, User, ArrowRight, Phone, Mail, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import { supabase } from '@/integrations/supabase/client';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 const getStatusConfig = (status: string) => {
   switch (status) {
@@ -27,6 +31,54 @@ const getStatusConfig = (status: string) => {
 export default function ClientDashboard() {
   const { user } = useDemoAuth();
   const { data: intakes, isLoading } = useClientIntakes();
+  const queryClient = useQueryClient();
+
+  // Subscribe to real-time updates for this client's intakes
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const channel = supabase
+      .channel('client-intakes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'intakes',
+          filter: `demo_user_id=eq.${user.id}`,
+        },
+        (payload) => {
+          queryClient.invalidateQueries({ queryKey: ['client-intakes'] });
+          
+          // Show toast notification for status updates
+          if (payload.eventType === 'UPDATE') {
+            const newRecord = payload.new as any;
+            const oldRecord = payload.old as any;
+            
+            if (newRecord.status !== oldRecord.status) {
+              if (newRecord.status === 'matched') {
+                toast.success('Great news! An attorney has been matched to your case.', {
+                  icon: <Bell className="h-4 w-4" />,
+                });
+              } else if (newRecord.status === 'referred') {
+                toast.success('Your attorney has accepted your case!', {
+                  icon: <CheckCircle className="h-4 w-4" />,
+                });
+              } else if (newRecord.status === 'pending_match' && oldRecord.status === 'matched') {
+                toast.info('We\'re finding a new attorney match for you.', {
+                  icon: <Clock className="h-4 w-4" />,
+                });
+              }
+            }
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id, queryClient]);
 
   const activeIntakes = intakes?.filter((i) => !['closed', 'cancelled'].includes(i.status || '')) || [];
   const latestIntake = activeIntakes[0];
@@ -92,6 +144,22 @@ export default function ClientDashboard() {
             </div>
           </CardHeader>
           <CardContent>
+            {/* Status Timeline */}
+            <div className="mb-4">
+              <div className="flex items-center gap-2 mb-2">
+                <div className={`h-2 w-2 rounded-full ${latestIntake.status ? 'bg-green-500' : 'bg-gray-300'}`} />
+                <span className="text-sm">Request Submitted</span>
+              </div>
+              <div className="flex items-center gap-2 mb-2">
+                <div className={`h-2 w-2 rounded-full ${['matched', 'referred', 'closed'].includes(latestIntake.status || '') ? 'bg-green-500' : 'bg-gray-300'}`} />
+                <span className="text-sm">Attorney Matched</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className={`h-2 w-2 rounded-full ${latestIntake.status === 'referred' || latestIntake.status === 'closed' ? 'bg-green-500' : 'bg-gray-300'}`} />
+                <span className="text-sm">Attorney Accepted</span>
+              </div>
+            </div>
+
             {latestIntake.assigned_attorney && (
               <div className="bg-muted/50 rounded-lg p-4 mb-4">
                 <p className="text-sm font-medium mb-2">Your Assigned Attorney</p>
@@ -118,6 +186,18 @@ export default function ClientDashboard() {
                     </div>
                   </div>
                 </div>
+                {latestIntake.status === 'referred' && (
+                  <div className="mt-3 p-2 bg-green-50 border border-green-200 rounded text-sm text-green-700 flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4" />
+                    Your attorney has accepted your case and will contact you soon.
+                  </div>
+                )}
+                {latestIntake.status === 'matched' && (
+                  <div className="mt-3 p-2 bg-amber-50 border border-amber-200 rounded text-sm text-amber-700 flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    Waiting for attorney to confirm acceptance...
+                  </div>
+                )}
               </div>
             )}
             <div className="flex items-center justify-between">
