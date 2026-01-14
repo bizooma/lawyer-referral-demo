@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SEO } from "@/components/SEO";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, WebPageSchema } from "@/components/StructuredData";
 import { 
   Globe, 
   Code, 
@@ -66,6 +66,11 @@ export default function Deployment() {
           { name: "Deployment", url: "/deployment" }
         ]}
       />
+      <WebPageSchema
+        name="Deployment Options - Standalone Portal or Widget"
+        description="Deploy as a branded standalone portal or embed into your existing website"
+        speakableSelectors={[".voice-deployment-intro"]}
+      />
       
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
@@ -76,6 +81,17 @@ export default function Deployment() {
           <p className="mt-4 text-xl text-primary-foreground/80 max-w-2xl mx-auto">
             Flexible deployment to fit your organization's needs
           </p>
+        </div>
+      </section>
+
+      {/* Voice-Optimized Deployment Intro */}
+      <section className="py-12 bg-muted/30 voice-deployment-intro">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg text-foreground leading-relaxed">
+              <strong>How can I deploy lawyer referral software?</strong> Bar Bridge Connect offers two deployment options. First, a standalone portal gives you a branded referral website on your own subdomain, like referrals.countybar.org. Second, an embedded widget lets you add the intake form directly to your existing website. Both options are fully managed with enterprise-grade security.
+            </p>
+          </div>
         </div>
       </section>
 

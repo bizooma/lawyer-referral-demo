@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SEO } from "@/components/SEO";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, WebPageSchema } from "@/components/StructuredData";
 import { Mail, Phone, MapPin, Calendar, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -43,6 +43,11 @@ export default function Contact() {
           { name: "Contact", url: "/contact" }
         ]}
       />
+      <WebPageSchema
+        name="Contact Bar Bridge Connect"
+        description="Get in touch to schedule a demo or ask questions about lawyer referral software"
+        speakableSelectors={[".voice-contact-intro"]}
+      />
       
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
@@ -53,6 +58,17 @@ export default function Contact() {
           <p className="mt-4 text-xl text-primary-foreground/80 max-w-2xl mx-auto">
             Let's discuss how we can help modernize your referral program
           </p>
+        </div>
+      </section>
+
+      {/* Voice-Optimized Contact Intro */}
+      <section className="py-12 bg-muted/30 voice-contact-intro">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg text-foreground leading-relaxed">
+              <strong>How do I get started with Bar Bridge Connect?</strong> Contact us to schedule a personalized demo. We'll show you how the platform works and discuss your organization's specific needs. Email us at hello@lawyerreferralprogram.com or call (555) 123-4567. Most demos take about 30 minutes and include a Q&A session.
+            </p>
+          </div>
         </div>
       </section>
 
