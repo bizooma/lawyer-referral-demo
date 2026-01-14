@@ -10,8 +10,8 @@ interface SEOProps {
 }
 
 const SITE_NAME = "Lawyer Referral Program";
-const DEFAULT_IMAGE = "https://bar-bridge-connect.lovable.app/og-image.png";
-const SITE_URL = "https://bar-bridge-connect.lovable.app";
+const DEFAULT_IMAGE = "https://lawyerreferralprogram.com/og-image.png";
+const SITE_URL = "https://lawyerreferralprogram.com";
 
 export function SEO({
   title,
