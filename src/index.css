@@ -261,4 +261,16 @@
     );
     background-size: 24px 24px;
   }
+
+  /* Shimmer animation for tour highlights */
+  @keyframes shimmer {
+    0%, 100% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(100%);
+    }
+  }
 }
