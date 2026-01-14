@@ -8,6 +8,7 @@ import { DemoLayout } from "@/components/layout/DemoLayout";
 import { ClientLayout } from "@/components/layout/ClientLayout";
 import { AttorneyLayout } from "@/components/layout/AttorneyLayout";
 import { DemoAuthProvider } from "@/contexts/DemoAuthContext";
+import { DemoLoginGuard, StaffGuard, ClientGuard, AttorneyGuard } from "@/components/auth/DemoAuthGuard";
 import Home from "./pages/Home";
 import HowItWorks from "./pages/HowItWorks";
 import Features from "./pages/Features";
@@ -58,12 +59,12 @@ const App = () => (
               <Route path="/contact" element={<Contact />} />
             </Route>
 
-            {/* Demo Application - Login & Signup */}
-            <Route path="/demo" element={<DemoLogin />} />
+            {/* Demo Application - Login & Signup (redirect if already logged in) */}
+            <Route path="/demo" element={<DemoLoginGuard><DemoLogin /></DemoLoginGuard>} />
             <Route path="/demo/attorney/signup" element={<AttorneySignup />} />
 
             {/* Demo - Staff Portal (Intake Specialist & Program Admin) */}
-            <Route element={<DemoLayout />}>
+            <Route element={<StaffGuard><DemoLayout /></StaffGuard>}>
               <Route path="/demo/dashboard" element={<Dashboard />} />
               <Route path="/demo/intake" element={<IntakeWizard />} />
               <Route path="/demo/matching" element={<Matching />} />
@@ -74,7 +75,7 @@ const App = () => (
             </Route>
 
             {/* Demo - Client Portal */}
-            <Route element={<ClientLayout />}>
+            <Route element={<ClientGuard><ClientLayout /></ClientGuard>}>
               <Route path="/demo/client/dashboard" element={<ClientDashboard />} />
               <Route path="/demo/client/referrals" element={<ClientReferrals />} />
               <Route path="/demo/client/intake" element={<ClientIntakeWizard />} />
@@ -82,7 +83,7 @@ const App = () => (
             </Route>
 
             {/* Demo - Attorney Portal */}
-            <Route element={<AttorneyLayout />}>
+            <Route element={<AttorneyGuard><AttorneyLayout /></AttorneyGuard>}>
               <Route path="/demo/attorney/dashboard" element={<AttorneyDashboard />} />
               <Route path="/demo/attorney/referrals" element={<AttorneyReferrals />} />
               <Route path="/demo/attorney/profile" element={<AttorneyProfile />} />
