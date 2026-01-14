@@ -42,6 +42,7 @@ import AttorneySignup from "./pages/demo/attorney/AttorneySignup";
 
 const queryClient = new QueryClient();
 
+// Main App component with SEO and routing
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
