@@ -2,7 +2,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SEO } from "@/components/SEO";
-import { OrganizationSchema, SoftwareApplicationSchema, WebPageSchema } from "@/components/StructuredData";
+import { OrganizationSchema, SoftwareApplicationSchema, WebPageSchema, FAQPageSchema } from "@/components/StructuredData";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { 
   Scale, 
   Users, 
@@ -36,6 +42,29 @@ const deploymentModels = [
   { title: "Embedded Widget", description: "Embed the intake form directly into your existing website", icon: FileText },
 ];
 
+const homeFaqs = [
+  {
+    question: "What is a lawyer referral program?",
+    answer: "A lawyer referral program is a service operated by bar associations that connects members of the public with qualified attorneys based on their legal needs, location, and other criteria. These programs help ensure access to justice while maintaining professional responsibility standards."
+  },
+  {
+    question: "How does Bar Bridge Connect work for bar associations?",
+    answer: "Bar Bridge Connect provides the complete infrastructure for running a modern lawyer referral program. It handles caller intake, matches clients with appropriate attorneys based on your rules, sends referrals via email or SMS, tracks outcomes, and generates compliance reports—all while maintaining full bar control over policies."
+  },
+  {
+    question: "Is Bar Bridge Connect compliant with ethics rules?",
+    answer: "Bar Bridge Connect is designed with bar association ethics requirements at its foundation. The platform supports ABA Model Rule 7.2 compliance, maintains complete audit trails, avoids fee-sharing arrangements, and allows you to configure all policies and disclaimers to meet your jurisdiction's requirements."
+  },
+  {
+    question: "Can we customize the referral matching rules?",
+    answer: "Yes, you have complete control over matching criteria. Configure rules based on practice areas, geographic coverage, language capabilities, attorney capacity, and custom eligibility requirements. The platform executes your rules—you maintain full policy control."
+  },
+  {
+    question: "What deployment options are available?",
+    answer: "Choose between a standalone branded portal (e.g., referrals.countybar.org) with full customization, or embed the intake widget directly into your existing website. Both options are fully managed with no IT burden on your organization."
+  }
+];
+
 export default function Home() {
   return (
     <div className="flex flex-col">
@@ -49,8 +78,9 @@ export default function Home() {
       <WebPageSchema
         name="Bar Bridge Connect - Modern Lawyer Referral Software"
         description="Ethics-aware lawyer referral program software built for bar associations."
-        speakableSelectors={[".hero-description"]}
+        speakableSelectors={[".hero-description", ".faq-section"]}
       />
+      <FAQPageSchema faqs={homeFaqs} />
       
       {/* Hero Section */}
       <section className="hero-gradient relative overflow-hidden">
@@ -221,8 +251,36 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-16 lg:py-24 bg-muted/30 faq-section">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                Frequently Asked Questions
+              </h2>
+              <p className="mt-4 text-lg text-muted-foreground">
+                Common questions about lawyer referral programs and our platform
+              </p>
+            </div>
+            <Accordion type="single" collapsible className="w-full">
+              {homeFaqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials Placeholder */}
-      <section className="py-16 lg:py-24 bg-muted/30">
+      <section className="py-16 lg:py-24">
         <div className="section-container">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Trusted by Bar Associations</h2>

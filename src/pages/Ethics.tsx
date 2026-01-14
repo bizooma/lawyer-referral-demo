@@ -2,7 +2,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SEO } from "@/components/SEO";
-import { BreadcrumbSchema, WebPageSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, WebPageSchema, FAQPageSchema } from "@/components/StructuredData";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { 
   Shield, 
   Scale, 
@@ -58,6 +64,29 @@ const complianceFeatures = [
   "Multi-level approval workflows for sensitive cases"
 ];
 
+const ethicsFaqs = [
+  {
+    question: "Does Bar Bridge Connect comply with ABA Model Rule 7.2?",
+    answer: "The platform is designed with ABA Model Rule 7.2 compliance considerations in mind. It supports proper fee structures, avoids improper fee-sharing, and provides the transparency needed for oversight. However, ultimate compliance responsibility rests with the operating bar association."
+  },
+  {
+    question: "Who owns the data in the system?",
+    answer: "Your organization owns all data. We act as a data processor, not a data owner. You can export your data at any time in standard formats, and we never use client information for marketing or share it with third parties."
+  },
+  {
+    question: "How do you prevent fee-sharing concerns?",
+    answer: "The platform charges a flat subscription or usage-based fee to the bar association for software services only. There are no per-referral fees to attorneys, no revenue sharing based on case outcomes, and no arrangements that could create improper fee-sharing concerns."
+  },
+  {
+    question: "Can we customize disclaimers for our jurisdiction?",
+    answer: "Yes, all public-facing disclaimers, disclosures, and terms are fully customizable. We provide sample language as a starting point, but your organization controls the final text to ensure it meets your specific jurisdiction's requirements."
+  },
+  {
+    question: "What audit capabilities are available?",
+    answer: "Every action in the system is logged with timestamps, user attribution, and detailed context. You can generate audit reports for any time period, review individual intake histories, and export compliance documentation as needed for oversight reviews."
+  }
+];
+
 export default function Ethics() {
   return (
     <div className="flex flex-col">
@@ -75,8 +104,9 @@ export default function Ethics() {
       <WebPageSchema
         name="Ethics & Compliance - Bar Bridge Connect"
         description="Ethics-aware design principles for lawyer referral programs"
-        speakableSelectors={[".ethics-intro"]}
+        speakableSelectors={[".ethics-intro", ".ethics-faq"]}
       />
+      <FAQPageSchema faqs={ethicsFaqs} />
       
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
@@ -210,6 +240,34 @@ export default function Ethics() {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 lg:py-24 ethics-faq">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Ethics & Compliance Questions
+              </h2>
+              <p className="mt-4 text-lg text-muted-foreground">
+                Common questions about ethical considerations and compliance
+              </p>
+            </div>
+            <Accordion type="single" collapsible className="w-full">
+              {ethicsFaqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>
