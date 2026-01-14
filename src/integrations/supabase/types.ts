@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      attorney_profiles: {
+        Row: {
+          accepting_referrals: boolean | null
+          attorney_id: string
+          bio: string | null
+          created_at: string | null
+          demo_user_id: string
+          id: string
+          profile_photo_url: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          accepting_referrals?: boolean | null
+          attorney_id: string
+          bio?: string | null
+          created_at?: string | null
+          demo_user_id: string
+          id?: string
+          profile_photo_url?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          accepting_referrals?: boolean | null
+          attorney_id?: string
+          bio?: string | null
+          created_at?: string | null
+          demo_user_id?: string
+          id?: string
+          profile_photo_url?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attorney_profiles_attorney_id_fkey"
+            columns: ["attorney_id"]
+            isOneToOne: true
+            referencedRelation: "attorneys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attorney_profiles_demo_user_id_fkey"
+            columns: ["demo_user_id"]
+            isOneToOne: true
+            referencedRelation: "demo_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       attorneys: {
         Row: {
           bar_number: string
@@ -116,6 +164,44 @@ export type Database = {
           },
         ]
       }
+      client_profiles: {
+        Row: {
+          address: string | null
+          created_at: string | null
+          demo_user_id: string
+          id: string
+          phone: string | null
+          preferred_language: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string | null
+          demo_user_id: string
+          id?: string
+          phone?: string | null
+          preferred_language?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          created_at?: string | null
+          demo_user_id?: string
+          id?: string
+          phone?: string | null
+          preferred_language?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_profiles_demo_user_id_fkey"
+            columns: ["demo_user_id"]
+            isOneToOne: true
+            referencedRelation: "demo_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       demo_users: {
         Row: {
           created_at: string | null
@@ -150,6 +236,7 @@ export type Database = {
           client_id: string
           county: string
           created_at: string | null
+          demo_user_id: string | null
           id: string
           intake_number: string
           issue_date: string | null
@@ -173,6 +260,7 @@ export type Database = {
           client_id: string
           county: string
           created_at?: string | null
+          demo_user_id?: string | null
           id?: string
           intake_number: string
           issue_date?: string | null
@@ -196,6 +284,7 @@ export type Database = {
           client_id?: string
           county?: string
           created_at?: string | null
+          demo_user_id?: string | null
           id?: string
           intake_number?: string
           issue_date?: string | null
@@ -216,6 +305,13 @@ export type Database = {
             columns: ["assigned_attorney_id"]
             isOneToOne: false
             referencedRelation: "attorneys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "intakes_demo_user_id_fkey"
+            columns: ["demo_user_id"]
+            isOneToOne: false
+            referencedRelation: "demo_users"
             referencedColumns: ["id"]
           },
         ]
@@ -283,6 +379,51 @@ export type Database = {
         }
         Relationships: []
       }
+      referral_responses: {
+        Row: {
+          attorney_id: string
+          created_at: string | null
+          id: string
+          intake_id: string
+          notes: string | null
+          response_date: string | null
+          status: Database["public"]["Enums"]["referral_status"] | null
+        }
+        Insert: {
+          attorney_id: string
+          created_at?: string | null
+          id?: string
+          intake_id: string
+          notes?: string | null
+          response_date?: string | null
+          status?: Database["public"]["Enums"]["referral_status"] | null
+        }
+        Update: {
+          attorney_id?: string
+          created_at?: string | null
+          id?: string
+          intake_id?: string
+          notes?: string | null
+          response_date?: string | null
+          status?: Database["public"]["Enums"]["referral_status"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referral_responses_attorney_id_fkey"
+            columns: ["attorney_id"]
+            isOneToOne: false
+            referencedRelation: "attorneys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "referral_responses_intake_id_fkey"
+            columns: ["intake_id"]
+            isOneToOne: false
+            referencedRelation: "intakes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -291,7 +432,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      demo_role: "intake_specialist" | "program_admin"
+      demo_role: "intake_specialist" | "program_admin" | "client" | "attorney"
       intake_status:
         | "new"
         | "pending_match"
@@ -306,6 +447,7 @@ export type Database = {
         | "estate_probate"
         | "immigration"
         | "business"
+      referral_status: "pending" | "accepted" | "declined" | "contacted"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -433,7 +575,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      demo_role: ["intake_specialist", "program_admin"],
+      demo_role: ["intake_specialist", "program_admin", "client", "attorney"],
       intake_status: [
         "new",
         "pending_match",
@@ -450,6 +592,7 @@ export const Constants = {
         "immigration",
         "business",
       ],
+      referral_status: ["pending", "accepted", "declined", "contacted"],
     },
   },
 } as const
