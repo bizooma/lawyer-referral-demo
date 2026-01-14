@@ -7,7 +7,7 @@ export function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Bar Bridge Connect",
+    name: "Lawyer Referral Program",
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.png`,
     description:
@@ -33,7 +33,7 @@ export function SoftwareApplicationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Bar Bridge Connect",
+    name: "Lawyer Referral Program",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web Browser",
     description:
@@ -132,7 +132,7 @@ export function ServiceSchema() {
     serviceType: "Legal Technology Platform",
     provider: {
       "@type": "Organization",
-      name: "Bar Bridge Connect",
+      name: "Lawyer Referral Program",
       url: SITE_URL,
     },
     description:
@@ -197,7 +197,7 @@ export function WebPageSchema({
     description,
     isPartOf: {
       "@type": "WebSite",
-      name: "Bar Bridge Connect",
+      name: "Lawyer Referral Program",
       url: SITE_URL,
     },
   };

@@ -1,4 +1,4 @@
-# Bar Bridge Connect - Robots.txt
+# Lawyer Referral Program - Robots.txt
 
 # Allow all crawlers for marketing pages
 User-agent: *

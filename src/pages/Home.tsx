@@ -48,12 +48,12 @@ const homeFaqs = [
     answer: "A lawyer referral program is a service operated by bar associations that connects members of the public with qualified attorneys based on their legal needs, location, and other criteria. These programs help ensure access to justice while maintaining professional responsibility standards."
   },
   {
-    question: "How does Bar Bridge Connect work for bar associations?",
-    answer: "Bar Bridge Connect provides the complete infrastructure for running a modern lawyer referral program. It handles caller intake, matches clients with appropriate attorneys based on your rules, sends referrals via email or SMS, tracks outcomes, and generates compliance reports—all while maintaining full bar control over policies."
+    question: "How does Lawyer Referral Program work for bar associations?",
+    answer: "Lawyer Referral Program provides the complete infrastructure for running a modern lawyer referral program. It handles caller intake, matches clients with appropriate attorneys based on your rules, sends referrals via email or SMS, tracks outcomes, and generates compliance reports—all while maintaining full bar control over policies."
   },
   {
-    question: "Is Bar Bridge Connect compliant with ethics rules?",
-    answer: "Bar Bridge Connect is designed with bar association ethics requirements at its foundation. The platform supports ABA Model Rule 7.2 compliance, maintains complete audit trails, avoids fee-sharing arrangements, and allows you to configure all policies and disclaimers to meet your jurisdiction's requirements."
+    question: "Is Lawyer Referral Program compliant with ethics rules?",
+    answer: "Lawyer Referral Program is designed with bar association ethics requirements at its foundation. The platform supports ABA Model Rule 7.2 compliance, maintains complete audit trails, avoids fee-sharing arrangements, and allows you to configure all policies and disclaimers to meet your jurisdiction's requirements."
   },
   {
     question: "Can we customize the referral matching rules?",
@@ -69,14 +69,14 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <SEO
-        title="Bar Bridge Connect | Modern Lawyer Referral Software"
+        title="Lawyer Referral Program | Modern Lawyer Referral Software"
         description="Streamline your bar association's lawyer referral program with ethics-aware software featuring intake management, smart matching, and compliance tools."
         canonical="/"
       />
       <OrganizationSchema />
       <SoftwareApplicationSchema />
       <WebPageSchema
-        name="Bar Bridge Connect - Modern Lawyer Referral Software"
+        name="Lawyer Referral Program - Modern Lawyer Referral Software"
         description="Ethics-aware lawyer referral program software built for bar associations."
         speakableSelectors={[".hero-description", ".voice-intro", ".faq-section"]}
       />
@@ -118,7 +118,7 @@ export default function Home() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>What is Bar Bridge Connect?</strong> Bar Bridge Connect is modern lawyer referral software built specifically for bar associations. It streamlines the entire referral process—from capturing caller information, to matching clients with qualified attorneys, to generating compliance reports. The platform is ethics-aware by design, with no fee-sharing arrangements and complete audit trails for every action.
+              <strong>What is Lawyer Referral Program?</strong> Lawyer Referral Program is modern lawyer referral software built specifically for bar associations. It streamlines the entire referral process—from capturing caller information, to matching clients with qualified attorneys, to generating compliance reports. The platform is ethics-aware by design, with no fee-sharing arrangements and complete audit trails for every action.
             </p>
           </div>
         </div>

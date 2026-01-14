@@ -66,7 +66,7 @@ const complianceFeatures = [
 
 const ethicsFaqs = [
   {
-    question: "Does Bar Bridge Connect comply with ABA Model Rule 7.2?",
+    question: "Does Lawyer Referral Program comply with ABA Model Rule 7.2?",
     answer: "The platform is designed with ABA Model Rule 7.2 compliance considerations in mind. It supports proper fee structures, avoids improper fee-sharing, and provides the transparency needed for oversight. However, ultimate compliance responsibility rests with the operating bar association."
   },
   {
@@ -102,7 +102,7 @@ export default function Ethics() {
         ]}
       />
       <WebPageSchema
-        name="Ethics & Compliance - Bar Bridge Connect"
+        name="Ethics & Compliance - Lawyer Referral Program"
         description="Ethics-aware design principles for lawyer referral programs"
         speakableSelectors={[".ethics-intro", ".ethics-faq"]}
       />
@@ -125,7 +125,7 @@ export default function Ethics() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>Is lawyer referral software ethics-compliant?</strong> Bar Bridge Connect is designed with bar association ethics requirements at its foundation. The platform maintains no fee-sharing arrangements, provides complete audit trails, and gives you full control over matching rules and disclaimers. Your organization sets the policies—we provide the infrastructure to execute them while maintaining ABA Model Rule compliance considerations.
+              <strong>Is lawyer referral software ethics-compliant?</strong> Lawyer Referral Program is designed with bar association ethics requirements at its foundation. The platform maintains no fee-sharing arrangements, provides complete audit trails, and gives you full control over matching rules and disclaimers. Your organization sets the policies—we provide the infrastructure to execute them while maintaining ABA Model Rule compliance considerations.
             </p>
           </div>
         </div>

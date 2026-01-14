@@ -113,7 +113,7 @@ export default function Pricing() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>How much does lawyer referral software cost?</strong> Bar Bridge Connect offers three pricing tiers based on your organization's size. Local Bar plans support up to 100 attorneys. Regional Bar plans handle up to 500 attorneys with multi-county coverage. Statewide Programs include unlimited attorneys with enterprise features. All plans use flat subscription pricing with no per-referral fees.
+              <strong>How much does lawyer referral software cost?</strong> Lawyer Referral Program offers three pricing tiers based on your organization's size. Local Bar plans support up to 100 attorneys. Regional Bar plans handle up to 500 attorneys with multi-county coverage. Statewide Programs include unlimited attorneys with enterprise features. All plans use flat subscription pricing with no per-referral fees.
             </p>
           </div>
         </div>

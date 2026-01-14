@@ -163,7 +163,7 @@ export default function Features() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>What features does lawyer referral software need?</strong> Bar Bridge Connect includes six core features: an intake dashboard for managing referral requests, an attorney directory for your panel roster, a matching rules engine for intelligent attorney assignment, payment logging for fee-based programs, comprehensive reporting and export tools, and a complete audit trail for compliance oversight.
+              <strong>What features does lawyer referral software need?</strong> Lawyer Referral Program includes six core features: an intake dashboard for managing referral requests, an attorney directory for your panel roster, a matching rules engine for intelligent attorney assignment, payment logging for fee-based programs, comprehensive reporting and export tools, and a complete audit trail for compliance oversight.
             </p>
           </div>
         </div>
