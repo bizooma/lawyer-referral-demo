@@ -85,15 +85,15 @@ export default function DemoLogin() {
                     <item.icon className="h-6 w-6" />
                   </div>
                   <div>
-                    <CardTitle className="text-xl">{item.title}</CardTitle>
-                    <CardDescription className="mt-1">{item.description}</CardDescription>
+                    <CardTitle className="text-xl text-white">{item.title}</CardTitle>
+                    <CardDescription className="mt-1 text-slate-300">{item.description}</CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 mb-6">
                   {item.features.map((feature) => (
-                    <li key={feature} className="text-sm text-muted-foreground flex items-center gap-2">
+                    <li key={feature} className="text-sm text-slate-300 flex items-center gap-2">
                       <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                       {feature}
                     </li>
@@ -119,21 +119,21 @@ export default function DemoLogin() {
                 <Briefcase className="h-6 w-6" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-foreground mb-1">Attorney Application Demo</h3>
-                <p className="text-muted-foreground mb-3">
+                <h3 className="text-xl font-semibold text-white mb-1">Attorney Application Demo</h3>
+                <p className="text-slate-300 mb-3">
                   Experience the attorney onboarding process. This demo shows how attorneys apply to join the referral program.
                 </p>
                 <ul className="space-y-1">
-                  <li className="text-sm text-muted-foreground flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <li className="text-sm text-slate-300 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                     Complete a sample application form
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <li className="text-sm text-slate-300 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                     See how bar verification works
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <li className="text-sm text-slate-300 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                     Preview the attorney onboarding experience
                   </li>
                 </ul>
@@ -153,21 +153,21 @@ export default function DemoLogin() {
                 <User className="h-6 w-6" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-foreground mb-1">Client Referral Demo</h3>
-                <p className="text-muted-foreground mb-3">
+                <h3 className="text-xl font-semibold text-white mb-1">Client Referral Demo</h3>
+                <p className="text-slate-300 mb-3">
                   See how website visitors request an attorney referral. This demo walks through the complete client intake experience.
                 </p>
                 <ul className="space-y-1">
-                  <li className="text-sm text-muted-foreground flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                  <li className="text-sm text-slate-300 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
                     Complete a multi-step intake form
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                  <li className="text-sm text-slate-300 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
                     Simulate referral fee payment
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                  <li className="text-sm text-slate-300 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
                     Track your attorney match status
                   </li>
                 </ul>
