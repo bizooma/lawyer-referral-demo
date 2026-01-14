@@ -88,7 +88,7 @@ export function AttorneyLayout() {
           <div className="flex items-center justify-between px-6 py-4 border-b">
             <div className="flex items-center gap-2">
               <Scale className="h-6 w-6 text-primary" />
-              <span className="font-semibold text-lg">ReferEase</span>
+              <span className="font-semibold text-lg">LawyerReferral</span>
             </div>
             {pendingCount && pendingCount > 0 ? (
               <div className="flex items-center gap-1 bg-destructive text-destructive-foreground px-2 py-1 rounded-full text-xs font-medium">
