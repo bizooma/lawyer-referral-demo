@@ -111,13 +111,39 @@ export default function DemoLogin() {
           ))}
         </div>
 
-        {/* Attorney Signup Link */}
-        <div className="max-w-4xl mx-auto text-center mb-8">
-          <p className="text-slate-400 mb-2">Are you an attorney wanting to join the referral program?</p>
-          <Button variant="outline" asChild>
-            <Link to="/demo/attorney/signup">Apply to Join</Link>
-          </Button>
-        </div>
+        {/* Attorney Application Demo Card */}
+        <Card className="max-w-4xl mx-auto mb-8 bg-card/95 backdrop-blur border-emerald-500/30 hover:border-emerald-500/50 transition-colors">
+          <CardContent className="flex flex-col md:flex-row items-center justify-between gap-6 p-6">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-lg text-emerald-600 bg-emerald-100">
+                <Briefcase className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-foreground mb-1">Attorney Application Demo</h3>
+                <p className="text-muted-foreground mb-3">
+                  Experience the attorney onboarding process. This demo shows how attorneys apply to join the referral program.
+                </p>
+                <ul className="space-y-1">
+                  <li className="text-sm text-muted-foreground flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    Complete a sample application form
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    See how bar verification works
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    Preview the attorney onboarding experience
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <Button className="bg-emerald-600 hover:bg-emerald-700 whitespace-nowrap" asChild>
+              <Link to="/demo/attorney/signup">Start Application Demo</Link>
+            </Button>
+          </CardContent>
+        </Card>
 
         {/* Demo Notice */}
         <div className="max-w-4xl mx-auto">
