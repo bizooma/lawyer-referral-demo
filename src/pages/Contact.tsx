@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SEO } from "@/components/SEO";
+import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Mail, Phone, MapPin, Calendar, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -30,6 +32,18 @@ export default function Contact() {
 
   return (
     <div className="flex flex-col">
+      <SEO
+        title="Contact Us"
+        description="Get in touch to schedule a demo, request pricing, or ask questions about modernizing your lawyer referral program."
+        canonical="/contact"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Contact", url: "/contact" }
+        ]}
+      />
+      
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
         <div className="section-container text-center">

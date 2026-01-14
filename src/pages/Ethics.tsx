@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
+import { BreadcrumbSchema, WebPageSchema } from "@/components/StructuredData";
 import { 
   Shield, 
   Scale, 
@@ -59,6 +61,23 @@ const complianceFeatures = [
 export default function Ethics() {
   return (
     <div className="flex flex-col">
+      <SEO
+        title="Ethics & Compliance for Lawyer Referral Programs"
+        description="Built with bar association ethics requirements at the foundation. ABA Model Rule compliant with configurable policies and audit trails."
+        canonical="/ethics"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Ethics & Compliance", url: "/ethics" }
+        ]}
+      />
+      <WebPageSchema
+        name="Ethics & Compliance - Bar Bridge Connect"
+        description="Ethics-aware design principles for lawyer referral programs"
+        speakableSelectors={[".ethics-intro"]}
+      />
+      
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
         <div className="section-container text-center">

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
+import { HowToSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { 
   Phone, 
   ClipboardList, 
@@ -77,6 +79,26 @@ const workflowSteps = [
 export default function HowItWorks() {
   return (
     <div className="flex flex-col">
+      <SEO
+        title="How Lawyer Referral Matching Works"
+        description="See how Bar Bridge Connect automates client intake, matches them with qualified attorneys, and tracks referrals from start to completion."
+        canonical="/how-it-works"
+      />
+      <HowToSchema
+        name="How to Run a Lawyer Referral Program"
+        description="A streamlined five-step workflow from caller intake to compliance reporting"
+        steps={workflowSteps.map(step => ({
+          name: step.title,
+          text: step.description
+        }))}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "How It Works", url: "/how-it-works" }
+        ]}
+      />
+      
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
         <div className="section-container text-center">

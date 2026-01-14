@@ -1,3 +1,4 @@
+import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -42,63 +43,65 @@ import AttorneySignup from "./pages/demo/attorney/AttorneySignup";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <DemoAuthProvider>
-          <Routes>
-            {/* Marketing Site */}
-            <Route element={<MarketingLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/how-it-works" element={<HowItWorks />} />
-              <Route path="/features" element={<Features />} />
-              <Route path="/deployment" element={<Deployment />} />
-              <Route path="/ethics" element={<Ethics />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/contact" element={<Contact />} />
-            </Route>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <DemoAuthProvider>
+            <Routes>
+              {/* Marketing Site */}
+              <Route element={<MarketingLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/how-it-works" element={<HowItWorks />} />
+                <Route path="/features" element={<Features />} />
+                <Route path="/deployment" element={<Deployment />} />
+                <Route path="/ethics" element={<Ethics />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/contact" element={<Contact />} />
+              </Route>
 
-            {/* Demo Application - Login & Signup (redirect if already logged in) */}
-            <Route path="/demo" element={<DemoLoginGuard><DemoLogin /></DemoLoginGuard>} />
-            <Route path="/demo/attorney/signup" element={<AttorneySignup />} />
-            <Route path="/demo/client/intake" element={<PublicClientIntake />} />
+              {/* Demo Application - Login & Signup (redirect if already logged in) */}
+              <Route path="/demo" element={<DemoLoginGuard><DemoLogin /></DemoLoginGuard>} />
+              <Route path="/demo/attorney/signup" element={<AttorneySignup />} />
+              <Route path="/demo/client/intake" element={<PublicClientIntake />} />
 
-            {/* Demo - Staff Portal (Intake Specialist & Program Admin) */}
-            <Route element={<StaffGuard><DemoLayout /></StaffGuard>}>
-              <Route path="/demo/dashboard" element={<Dashboard />} />
-              <Route path="/demo/intake" element={<IntakeWizard />} />
-              <Route path="/demo/matching" element={<Matching />} />
-              <Route path="/demo/attorneys" element={<AttorneyDirectory />} />
-              <Route path="/demo/reports" element={<Reports />} />
-              <Route path="/demo/settings" element={<Settings />} />
-              <Route path="/demo/tour" element={<GuidedTour />} />
-            </Route>
+              {/* Demo - Staff Portal (Intake Specialist & Program Admin) */}
+              <Route element={<StaffGuard><DemoLayout /></StaffGuard>}>
+                <Route path="/demo/dashboard" element={<Dashboard />} />
+                <Route path="/demo/intake" element={<IntakeWizard />} />
+                <Route path="/demo/matching" element={<Matching />} />
+                <Route path="/demo/attorneys" element={<AttorneyDirectory />} />
+                <Route path="/demo/reports" element={<Reports />} />
+                <Route path="/demo/settings" element={<Settings />} />
+                <Route path="/demo/tour" element={<GuidedTour />} />
+              </Route>
 
-            {/* Demo - Client Portal */}
-            <Route element={<ClientGuard><ClientLayout /></ClientGuard>}>
-              <Route path="/demo/client/dashboard" element={<ClientDashboard />} />
-              <Route path="/demo/client/referrals" element={<ClientReferrals />} />
-              <Route path="/demo/client/intake" element={<ClientIntakeWizard />} />
-              <Route path="/demo/client/profile" element={<ClientProfile />} />
-            </Route>
+              {/* Demo - Client Portal */}
+              <Route element={<ClientGuard><ClientLayout /></ClientGuard>}>
+                <Route path="/demo/client/dashboard" element={<ClientDashboard />} />
+                <Route path="/demo/client/referrals" element={<ClientReferrals />} />
+                <Route path="/demo/client/intake" element={<ClientIntakeWizard />} />
+                <Route path="/demo/client/profile" element={<ClientProfile />} />
+              </Route>
 
-            {/* Demo - Attorney Portal */}
-            <Route element={<AttorneyGuard><AttorneyLayout /></AttorneyGuard>}>
-              <Route path="/demo/attorney/dashboard" element={<AttorneyDashboard />} />
-              <Route path="/demo/attorney/referrals" element={<AttorneyReferrals />} />
-              <Route path="/demo/attorney/profile" element={<AttorneyProfile />} />
-              <Route path="/demo/attorney/availability" element={<AttorneyAvailability />} />
-            </Route>
+              {/* Demo - Attorney Portal */}
+              <Route element={<AttorneyGuard><AttorneyLayout /></AttorneyGuard>}>
+                <Route path="/demo/attorney/dashboard" element={<AttorneyDashboard />} />
+                <Route path="/demo/attorney/referrals" element={<AttorneyReferrals />} />
+                <Route path="/demo/attorney/profile" element={<AttorneyProfile />} />
+                <Route path="/demo/attorney/availability" element={<AttorneyAvailability />} />
+              </Route>
 
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </DemoAuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </DemoAuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

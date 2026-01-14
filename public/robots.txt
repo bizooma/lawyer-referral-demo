@@ -1,14 +1,36 @@
-User-agent: Googlebot
-Allow: /
+# Bar Bridge Connect - Robots.txt
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# Allow all crawlers for marketing pages
 User-agent: *
 Allow: /
+Allow: /how-it-works
+Allow: /features
+Allow: /pricing
+Allow: /deployment
+Allow: /ethics
+Allow: /contact
+
+# Block demo application routes (not for public indexing)
+Disallow: /demo/dashboard
+Disallow: /demo/intake
+Disallow: /demo/matching
+Disallow: /demo/attorneys
+Disallow: /demo/reports
+Disallow: /demo/settings
+Disallow: /demo/tour
+Disallow: /demo/client/dashboard
+Disallow: /demo/client/referrals
+Disallow: /demo/client/profile
+Disallow: /demo/attorney/dashboard
+Disallow: /demo/attorney/referrals
+Disallow: /demo/attorney/profile
+Disallow: /demo/attorney/availability
+
+# Allow demo landing page for discovery
+Allow: /demo$
+
+# Sitemap location
+Sitemap: https://bar-bridge-connect.lovable.app/sitemap.xml
+
+# Crawl-delay (optional, be nice to servers)
+Crawl-delay: 1

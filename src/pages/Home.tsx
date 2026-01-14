@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
+import { OrganizationSchema, SoftwareApplicationSchema, WebPageSchema } from "@/components/StructuredData";
 import { 
   Scale, 
   Users, 
@@ -37,6 +39,19 @@ const deploymentModels = [
 export default function Home() {
   return (
     <div className="flex flex-col">
+      <SEO
+        title="Bar Bridge Connect | Modern Lawyer Referral Software"
+        description="Streamline your bar association's lawyer referral program with ethics-aware software featuring intake management, smart matching, and compliance tools."
+        canonical="/"
+      />
+      <OrganizationSchema />
+      <SoftwareApplicationSchema />
+      <WebPageSchema
+        name="Bar Bridge Connect - Modern Lawyer Referral Software"
+        description="Ethics-aware lawyer referral program software built for bar associations."
+        speakableSelectors={[".hero-description"]}
+      />
+      
       {/* Hero Section */}
       <section className="hero-gradient relative overflow-hidden">
         <div className="pattern-dots absolute inset-0" />
