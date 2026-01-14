@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SEO } from "@/components/SEO";
-import { HowToSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { HowToSchema, BreadcrumbSchema, WebPageSchema } from "@/components/StructuredData";
 import { 
   Phone, 
   ClipboardList, 
@@ -98,6 +98,11 @@ export default function HowItWorks() {
           { name: "How It Works", url: "/how-it-works" }
         ]}
       />
+      <WebPageSchema
+        name="How Lawyer Referral Matching Works"
+        description="A five-step workflow from caller intake to compliance reporting"
+        speakableSelectors={[".voice-intro", ".workflow-summary"]}
+      />
       
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
@@ -108,6 +113,17 @@ export default function HowItWorks() {
           <p className="mt-4 text-xl text-primary-foreground/80 max-w-2xl mx-auto">
             A streamlined workflow from caller intake to compliance reporting
           </p>
+        </div>
+      </section>
+
+      {/* Voice-Optimized Intro */}
+      <section className="py-12 bg-muted/30 voice-intro">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg text-foreground leading-relaxed">
+              <strong>How does a lawyer referral program work?</strong> When someone needs legal help, they call the bar association. A trained intake specialist captures their information, then the system matches them with a qualified attorney based on practice area, location, and availability. The referral is sent to the attorney, and the program tracks the outcome for compliance reporting.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -180,6 +196,18 @@ export default function HowItWorks() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Workflow Summary for Voice */}
+      <section className="py-12 bg-muted/30 workflow-summary">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl font-bold mb-4">The Five Steps in Brief</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Step one: receive the call. Step two: complete the intake with a guided wizard. Step three: match to attorneys based on your rules. Step four: send the referral via email, SMS, or letter. Step five: track outcomes and generate compliance reports.
+            </p>
           </div>
         </div>
       </section>

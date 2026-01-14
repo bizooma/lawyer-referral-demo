@@ -78,7 +78,7 @@ export default function Home() {
       <WebPageSchema
         name="Bar Bridge Connect - Modern Lawyer Referral Software"
         description="Ethics-aware lawyer referral program software built for bar associations."
-        speakableSelectors={[".hero-description", ".faq-section"]}
+        speakableSelectors={[".hero-description", ".voice-intro", ".faq-section"]}
       />
       <FAQPageSchema faqs={homeFaqs} />
       
@@ -93,7 +93,7 @@ export default function Home() {
             <p className="mt-2 text-xl font-medium text-primary-foreground/90 sm:text-2xl">
               Built for Bar Associations
             </p>
-            <p className="mt-6 text-lg text-primary-foreground/80 max-w-2xl mx-auto">
+            <p className="mt-6 text-lg text-primary-foreground/80 max-w-2xl mx-auto hero-description">
               Intake. Matching. Reporting. Deployment. Fully Managed.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -109,6 +109,17 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Voice-Optimized Introduction */}
+      <section className="py-12 bg-background voice-intro">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg text-foreground leading-relaxed">
+              <strong>What is Bar Bridge Connect?</strong> Bar Bridge Connect is modern lawyer referral software built specifically for bar associations. It streamlines the entire referral process—from capturing caller information, to matching clients with qualified attorneys, to generating compliance reports. The platform is ethics-aware by design, with no fee-sharing arrangements and complete audit trails for every action.
+            </p>
           </div>
         </div>
       </section>

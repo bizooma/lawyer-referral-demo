@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SEO } from "@/components/SEO";
-import { FAQPageSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { FAQPageSchema, BreadcrumbSchema, WebPageSchema } from "@/components/StructuredData";
 import { CheckCircle, ArrowRight } from "lucide-react";
 
 const tiers = [
@@ -90,6 +90,11 @@ export default function Pricing() {
           { name: "Pricing", url: "/pricing" }
         ]}
       />
+      <WebPageSchema
+        name="Pricing - Local, Regional & Statewide Plans"
+        description="Flexible pricing for bar associations of all sizes"
+        speakableSelectors={[".voice-pricing-intro"]}
+      />
       
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
@@ -100,6 +105,17 @@ export default function Pricing() {
           <p className="mt-4 text-xl text-primary-foreground/80 max-w-2xl mx-auto">
             Flexible plans designed for bar associations of all sizes
           </p>
+        </div>
+      </section>
+
+      {/* Voice-Optimized Pricing Intro */}
+      <section className="py-12 bg-muted/30 voice-pricing-intro">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg text-foreground leading-relaxed">
+              <strong>How much does lawyer referral software cost?</strong> Bar Bridge Connect offers three pricing tiers based on your organization's size. Local Bar plans support up to 100 attorneys. Regional Bar plans handle up to 500 attorneys with multi-county coverage. Statewide Programs include unlimited attorneys with enterprise features. All plans use flat subscription pricing with no per-referral fees.
+            </p>
+          </div>
         </div>
       </section>
 

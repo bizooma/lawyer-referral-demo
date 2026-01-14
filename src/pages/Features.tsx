@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SEO } from "@/components/SEO";
-import { ServiceSchema, BreadcrumbSchema, FAQPageSchema } from "@/components/StructuredData";
+import { ServiceSchema, BreadcrumbSchema, FAQPageSchema, WebPageSchema } from "@/components/StructuredData";
 import {
   Accordion,
   AccordionContent,
@@ -140,6 +140,11 @@ export default function Features() {
         ]}
       />
       <FAQPageSchema faqs={featuresFaqs} />
+      <WebPageSchema
+        name="Features - Attorney Matching, Intake & Reporting"
+        description="Powerful features including smart attorney matching, intake wizards, and compliance reporting"
+        speakableSelectors={[".voice-features-intro"]}
+      />
       
       {/* Hero */}
       <section className="hero-gradient py-16 lg:py-24">
@@ -150,6 +155,17 @@ export default function Features() {
           <p className="mt-4 text-xl text-primary-foreground/80 max-w-2xl mx-auto">
             Everything you need to run a modern, compliant lawyer referral program
           </p>
+        </div>
+      </section>
+
+      {/* Voice-Optimized Features Intro */}
+      <section className="py-12 bg-muted/30 voice-features-intro">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg text-foreground leading-relaxed">
+              <strong>What features does lawyer referral software need?</strong> Bar Bridge Connect includes six core features: an intake dashboard for managing referral requests, an attorney directory for your panel roster, a matching rules engine for intelligent attorney assignment, payment logging for fee-based programs, comprehensive reporting and export tools, and a complete audit trail for compliance oversight.
+            </p>
+          </div>
         </div>
       </section>
 

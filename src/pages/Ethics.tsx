@@ -120,6 +120,17 @@ export default function Ethics() {
         </div>
       </section>
 
+      {/* Voice-Optimized Ethics Intro */}
+      <section className="py-12 bg-muted/30 ethics-intro">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg text-foreground leading-relaxed">
+              <strong>Is lawyer referral software ethics-compliant?</strong> Bar Bridge Connect is designed with bar association ethics requirements at its foundation. The platform maintains no fee-sharing arrangements, provides complete audit trails, and gives you full control over matching rules and disclaimers. Your organization sets the policies—we provide the infrastructure to execute them while maintaining ABA Model Rule compliance considerations.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Important Notice */}
       <section className="py-8 bg-info/10 border-y border-info/20">
         <div className="section-container">
