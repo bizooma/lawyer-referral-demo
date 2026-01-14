@@ -3,12 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Preconnect to critical origins for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    
+    <!-- Preload critical fonts for LCP optimization -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    </noscript>
+    
+    <!-- Favicon with multiple sizes for better display -->
     <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     
     <!-- Primary Meta Tags -->
-    <title>Bar Bridge Connect | Modern Lawyer Referral Software for Bar Associations</title>
-    <meta name="description" content="Streamline your lawyer referral program with Bar Bridge Connect. Ethics-aware software built for bar associations with intake management, attorney matching, and compliance tools." />
-    <meta name="author" content="Bar Bridge Connect" />
+    <title>Lawyer Referral Program | Modern Attorney Referral Software for Bar Associations</title>
+    <meta name="description" content="Streamline your lawyer referral program with LawyerReferral. Ethics-aware software built for bar associations with intake management, attorney matching, and compliance tools." />
+    <meta name="author" content="Lawyer Referral Program" />
     <meta name="theme-color" content="#1e3a5f" />
     
     <!-- Keywords for SEO -->
@@ -17,20 +33,34 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://bar-bridge-connect.lovable.app/" />
-    <meta property="og:title" content="Bar Bridge Connect | Modern Lawyer Referral Software" />
+    <meta property="og:title" content="Lawyer Referral Program | Modern Attorney Referral Software" />
     <meta property="og:description" content="Streamline your lawyer referral program with ethics-aware software built for bar associations. Intake, matching, reporting, and compliance tools." />
     <meta property="og:image" content="https://bar-bridge-connect.lovable.app/og-image.png" />
-    <meta property="og:site_name" content="Bar Bridge Connect" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Lawyer Referral Program" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://bar-bridge-connect.lovable.app/" />
-    <meta name="twitter:title" content="Bar Bridge Connect | Modern Lawyer Referral Software" />
+    <meta name="twitter:title" content="Lawyer Referral Program | Modern Attorney Referral Software" />
     <meta name="twitter:description" content="Streamline your lawyer referral program with ethics-aware software built for bar associations." />
     <meta name="twitter:image" content="https://bar-bridge-connect.lovable.app/og-image.png" />
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://bar-bridge-connect.lovable.app/" />
+    
+    <!-- Inline critical CSS for faster First Contentful Paint -->
+    <style>
+      /* Critical CSS for above-the-fold content */
+      *,*::before,*::after{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%;line-height:1.5}
+      body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8fafc}
+      #root{min-height:100vh}
+      /* Loading skeleton */
+      .loading-skeleton{animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite}
+      @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+    </style>
   </head>
 
   <body>
