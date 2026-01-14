@@ -30,7 +30,17 @@ export default function AttorneyProfile() {
   const { data: profile, isLoading } = useAttorneyProfile();
   const [isSaving, setIsSaving] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    firmName: string;
+    barNumber: string;
+    bio: string;
+    practiceAreas: string[];
+    counties: string[];
+    languages: string[];
+  }>({
     name: profile?.attorney?.name || '',
     email: profile?.attorney?.email || '',
     phone: profile?.attorney?.phone || '',
@@ -81,6 +91,7 @@ export default function AttorneyProfile() {
         ? prev.languages.filter((v) => v !== value)
         : [...prev.languages, value];
       return { ...prev, languages: updated };
+    });
   };
 
   const handleSave = async () => {
@@ -211,7 +222,7 @@ export default function AttorneyProfile() {
                 <Checkbox
                   id={area.value}
                   checked={formData.practiceAreas.includes(area.value)}
-                  onCheckedChange={() => toggleArrayItem('practiceAreas', area.value)}
+                  onCheckedChange={() => togglePracticeArea(area.value)}
                 />
                 <label htmlFor={area.value} className="text-sm cursor-pointer">
                   {area.label}
@@ -235,7 +246,7 @@ export default function AttorneyProfile() {
                 <Checkbox
                   id={county}
                   checked={formData.counties.includes(county)}
-                  onCheckedChange={() => toggleArrayItem('counties', county)}
+                  onCheckedChange={() => toggleCounty(county)}
                 />
                 <label htmlFor={county} className="text-sm cursor-pointer">
                   {county}
@@ -259,7 +270,7 @@ export default function AttorneyProfile() {
                 <Checkbox
                   id={lang}
                   checked={formData.languages.includes(lang)}
-                  onCheckedChange={() => toggleArrayItem('languages', lang)}
+                  onCheckedChange={() => toggleLanguage(lang)}
                 />
                 <label htmlFor={lang} className="text-sm cursor-pointer">
                   {lang}
