@@ -31,6 +31,7 @@ import ClientDashboard from "./pages/demo/client/ClientDashboard";
 import ClientReferrals from "./pages/demo/client/ClientReferrals";
 import ClientIntakeWizard from "./pages/demo/client/ClientIntakeWizard";
 import ClientProfile from "./pages/demo/client/ClientProfile";
+import PublicClientIntake from "./pages/demo/client/PublicClientIntake";
 // Demo - Attorney
 import AttorneyDashboard from "./pages/demo/attorney/AttorneyDashboard";
 import AttorneyReferrals from "./pages/demo/attorney/AttorneyReferrals";
@@ -62,6 +63,7 @@ const App = () => (
             {/* Demo Application - Login & Signup (redirect if already logged in) */}
             <Route path="/demo" element={<DemoLoginGuard><DemoLogin /></DemoLoginGuard>} />
             <Route path="/demo/attorney/signup" element={<AttorneySignup />} />
+            <Route path="/demo/client/intake" element={<PublicClientIntake />} />
 
             {/* Demo - Staff Portal (Intake Specialist & Program Admin) */}
             <Route element={<StaffGuard><DemoLayout /></StaffGuard>}>
