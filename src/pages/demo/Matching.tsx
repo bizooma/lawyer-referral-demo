@@ -3,21 +3,39 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { useIntakes } from '@/hooks/useIntakes';
 import { useAttorneys } from '@/hooks/useAttorneys';
 import { calculateMatchScores, MatchScore } from '@/hooks/useMatchingRules';
-import { Scale, CheckCircle2, User, MapPin, Languages, AlertTriangle } from 'lucide-react';
+import { Scale, CheckCircle2, User, MapPin, Languages, AlertTriangle, Send, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { useQueryClient } from '@tanstack/react-query';
+import { useDemoAuth } from '@/contexts/DemoAuthContext';
 
 export default function Matching() {
+  const { user } = useDemoAuth();
+  const queryClient = useQueryClient();
   const { data: intakes, isLoading: intakesLoading } = useIntakes();
   const { data: attorneys, isLoading: attorneysLoading } = useAttorneys();
   const [selectedIntakeId, setSelectedIntakeId] = useState<string>('');
   const [matchResults, setMatchResults] = useState<MatchScore[]>([]);
   const [hasMatched, setHasMatched] = useState(false);
+  const [isAssigning, setIsAssigning] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState<{
+    open: boolean;
+    attorney: MatchScore['attorney'] | null;
+  }>({ open: false, attorney: null });
 
   const pendingIntakes = useMemo(() => 
-    intakes?.filter(i => i.status === 'new' || i.status === 'matched') || [],
+    intakes?.filter(i => i.status === 'new' || i.status === 'pending_match') || [],
     [intakes]
   );
 
@@ -45,10 +63,71 @@ export default function Matching() {
     });
   };
 
-  const handleReferral = (attorney: MatchScore['attorney']) => {
-    toast.success('Referral Sent!', {
-      description: `In a live system, ${attorney.name} would be notified about this referral.`,
-    });
+  const handleReferral = async () => {
+    if (!confirmDialog.attorney || !selectedIntake) return;
+
+    setIsAssigning(true);
+    try {
+      // 1. Update the intake with the assigned attorney and status
+      const { error: intakeError } = await supabase
+        .from('intakes')
+        .update({
+          assigned_attorney_id: confirmDialog.attorney.id,
+          status: 'matched',
+          referral_sent_at: new Date().toISOString(),
+        })
+        .eq('id', selectedIntake.id);
+
+      if (intakeError) throw intakeError;
+
+      // 2. Create a referral response record for the attorney
+      const { error: responseError } = await supabase
+        .from('referral_responses')
+        .upsert({
+          intake_id: selectedIntake.id,
+          attorney_id: confirmDialog.attorney.id,
+          status: 'pending',
+          created_at: new Date().toISOString(),
+        }, {
+          onConflict: 'intake_id,attorney_id'
+        });
+
+      if (responseError) throw responseError;
+
+      // 3. Log the action in audit_logs
+      await supabase
+        .from('audit_logs')
+        .insert({
+          action: 'referral_sent',
+          intake_id: selectedIntake.id,
+          attorney_id: confirmDialog.attorney.id,
+          performed_by: user?.display_name || 'Staff',
+          details: {
+            intake_number: selectedIntake.intake_number,
+            attorney_name: confirmDialog.attorney.name,
+            match_score: matchResults.find(m => m.attorney.id === confirmDialog.attorney?.id)?.score || 0,
+          },
+        });
+
+      // 4. Invalidate queries to refresh data
+      queryClient.invalidateQueries({ queryKey: ['intakes'] });
+      queryClient.invalidateQueries({ queryKey: ['attorneys'] });
+
+      toast.success('Referral Sent Successfully!', {
+        description: `${confirmDialog.attorney.name} has been assigned to ${selectedIntake.intake_number}. They will be notified to accept or decline.`,
+      });
+
+      // Reset state
+      setConfirmDialog({ open: false, attorney: null });
+      setSelectedIntakeId('');
+      setHasMatched(false);
+      setMatchResults([]);
+    } catch (error) {
+      console.error('Error assigning attorney:', error);
+      toast.error('Failed to assign attorney. Please try again.');
+    } finally {
+      setIsAssigning(false);
+    }
   };
 
   const getScoreColor = (score: number) => {
@@ -113,6 +192,9 @@ export default function Matching() {
                     {selectedIntake.language_preference}
                   </Badge>
                 )}
+                <Badge variant={selectedIntake.status === 'new' ? 'default' : 'secondary'}>
+                  {selectedIntake.status}
+                </Badge>
               </div>
               <p className="text-sm text-muted-foreground">
                 {selectedIntake.narrative || 'No narrative provided'}
@@ -185,13 +267,13 @@ export default function Matching() {
                       </div>
                     </div>
                     <Button 
-                      variant="outline" 
+                      variant="default" 
                       size="sm"
-                      onClick={() => handleReferral(result.attorney)}
+                      onClick={() => setConfirmDialog({ open: true, attorney: result.attorney })}
                       disabled={result.score <= 0}
                     >
-                      <CheckCircle2 className="mr-2 h-4 w-4" />
-                      Refer
+                      <Send className="mr-2 h-4 w-4" />
+                      Assign & Refer
                     </Button>
                   </div>
                 ))}
@@ -205,6 +287,64 @@ export default function Matching() {
           </CardContent>
         </Card>
       )}
+
+      {/* Confirmation Dialog */}
+      <Dialog open={confirmDialog.open} onOpenChange={(open) => setConfirmDialog({ ...confirmDialog, open })}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Attorney Assignment</DialogTitle>
+            <DialogDescription>
+              You are about to assign this attorney to the intake. They will be notified and asked to accept or decline.
+            </DialogDescription>
+          </DialogHeader>
+          
+          {confirmDialog.attorney && selectedIntake && (
+            <div className="py-4 space-y-4">
+              <div className="p-4 bg-muted/50 rounded-lg">
+                <p className="text-sm font-medium text-muted-foreground mb-1">Intake</p>
+                <p className="font-medium">{selectedIntake.intake_number}</p>
+                <p className="text-sm text-muted-foreground">{selectedIntake.caller_name}</p>
+              </div>
+              
+              <div className="p-4 bg-muted/50 rounded-lg">
+                <p className="text-sm font-medium text-muted-foreground mb-1">Assigned Attorney</p>
+                <p className="font-medium">{confirmDialog.attorney.name}</p>
+                <p className="text-sm text-muted-foreground">{confirmDialog.attorney.firm_name || 'Solo Practitioner'}</p>
+                <p className="text-sm text-muted-foreground">{confirmDialog.attorney.email}</p>
+              </div>
+
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800">
+                <strong>What happens next:</strong>
+                <ul className="mt-1 list-disc list-inside">
+                  <li>The attorney will receive a notification</li>
+                  <li>They can accept or decline the referral</li>
+                  <li>The client will be notified of the match</li>
+                  <li>Status updates will appear in real-time</li>
+                </ul>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setConfirmDialog({ open: false, attorney: null })}>
+              Cancel
+            </Button>
+            <Button onClick={handleReferral} disabled={isAssigning}>
+              {isAssigning ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Assigning...
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="mr-2 h-4 w-4" />
+                  Confirm Assignment
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
