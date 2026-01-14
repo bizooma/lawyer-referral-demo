@@ -145,6 +145,40 @@ export default function DemoLogin() {
           </CardContent>
         </Card>
 
+        {/* Client Referral Demo Card */}
+        <Card className="max-w-4xl mx-auto mb-8 bg-card/95 backdrop-blur border-amber-500/30 hover:border-amber-500/50 transition-colors">
+          <CardContent className="flex flex-col md:flex-row items-center justify-between gap-6 p-6">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-lg text-amber-600 bg-amber-100">
+                <User className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-foreground mb-1">Client Referral Demo</h3>
+                <p className="text-muted-foreground mb-3">
+                  See how website visitors request an attorney referral. This demo walks through the complete client intake experience.
+                </p>
+                <ul className="space-y-1">
+                  <li className="text-sm text-muted-foreground flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                    Complete a multi-step intake form
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                    Simulate referral fee payment
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                    Track your attorney match status
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <Button className="bg-amber-600 hover:bg-amber-700 whitespace-nowrap" asChild>
+              <Link to="/demo/client/intake">Start Client Demo</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
         {/* Demo Notice */}
         <div className="max-w-4xl mx-auto">
           <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-4">
