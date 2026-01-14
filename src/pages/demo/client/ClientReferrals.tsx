@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import { useClientIntakes } from '@/hooks/useClientIntakes';
+import { useDemoAuth } from '@/contexts/DemoAuthContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { FileText, Clock, CheckCircle, User, Phone, Mail, MapPin, Calendar } from 'lucide-react';
+import { FileText, Clock, CheckCircle, User, Phone, Mail, MapPin, Calendar, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
+import { supabase } from '@/integrations/supabase/client';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 const getStatusConfig = (status: string) => {
   switch (status) {
@@ -27,7 +32,47 @@ const getStatusConfig = (status: string) => {
 };
 
 export default function ClientReferrals() {
+  const { user } = useDemoAuth();
   const { data: intakes, isLoading } = useClientIntakes();
+  const queryClient = useQueryClient();
+
+  // Subscribe to real-time updates
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const channel = supabase
+      .channel('client-referrals-list')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'intakes',
+          filter: `demo_user_id=eq.${user.id}`,
+        },
+        (payload) => {
+          queryClient.invalidateQueries({ queryKey: ['client-intakes'] });
+          
+          if (payload.eventType === 'UPDATE') {
+            const newRecord = payload.new as any;
+            const oldRecord = payload.old as any;
+            
+            if (newRecord.status !== oldRecord.status) {
+              if (newRecord.status === 'referred') {
+                toast.success('Your attorney has accepted your case!', {
+                  icon: <CheckCircle className="h-4 w-4" />,
+                });
+              }
+            }
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id, queryClient]);
 
   if (isLoading) {
     return (
@@ -67,7 +112,7 @@ export default function ClientReferrals() {
                   <div className="flex items-start justify-between">
                     <div>
                       <CardTitle className="text-lg">{intake.intake_number}</CardTitle>
-                      <CardDescription className="flex items-center gap-4 mt-1">
+                      <CardDescription className="flex flex-wrap items-center gap-3 mt-1">
                         <span className="capitalize">{intake.area_of_law?.replace('_', ' ')}</span>
                         <span className="flex items-center gap-1">
                           <MapPin className="h-3 w-3" />
@@ -118,6 +163,20 @@ export default function ClientReferrals() {
                           )}
                         </div>
                       </div>
+                      
+                      {/* Status message */}
+                      {intake.status === 'referred' && (
+                        <div className="mt-3 p-2 bg-green-50 border border-green-200 rounded text-sm text-green-700 flex items-center gap-2">
+                          <CheckCircle className="h-4 w-4" />
+                          Your attorney has accepted and will contact you soon.
+                        </div>
+                      )}
+                      {intake.status === 'matched' && (
+                        <div className="mt-3 p-2 bg-amber-50 border border-amber-200 rounded text-sm text-amber-700 flex items-center gap-2">
+                          <Clock className="h-4 w-4" />
+                          Waiting for attorney confirmation...
+                        </div>
+                      )}
                     </div>
                   )}
 
