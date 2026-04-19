@@ -91,7 +91,7 @@ export default function GuidedTour() {
       <div>
         <h1 className="text-2xl font-bold text-foreground">Guided Tour</h1>
         <p className="text-muted-foreground">
-          Explore RefferEase's key features and learn how the platform works.
+          Explore LawyerReferral's key features and learn how the platform works.
         </p>
       </div>
 
@@ -126,7 +126,7 @@ export default function GuidedTour() {
             <CardTitle>Quick Start</CardTitle>
           </div>
           <CardDescription>
-            New to RefferEase? Here's the typical workflow for processing a client intake.
+            New to LawyerReferral? Here's the typical workflow for processing a client intake.
           </CardDescription>
         </CardHeader>
         <CardContent>
