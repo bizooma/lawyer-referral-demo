@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { LazyImage } from "@/components/ui/lazy-image";
 import { SEO } from "@/components/SEO";
 import { ServiceSchema, BreadcrumbSchema, FAQPageSchema, WebPageSchema } from "@/components/StructuredData";
 import {
@@ -29,6 +30,8 @@ const features = [
     icon: LayoutDashboard,
     title: "Intake Dashboard",
     description: "A centralized command center for managing all incoming referral requests.",
+    image: "/demo-screenshots/dashboard.png",
+    imageAlt: "Intake dashboard showing total intakes, recent client inquiries, and quick actions",
     capabilities: [
       "Real-time intake queue with status indicators",
       "Quick filters by status, date, and practice area",
@@ -40,6 +43,8 @@ const features = [
     icon: Users,
     title: "Attorney Directory",
     description: "Comprehensive management of your panel attorney roster.",
+    image: "/demo-screenshots/attorneys.png",
+    imageAlt: "Attorney directory listing 25 attorneys with practice areas, counties, languages, and availability status",
     capabilities: [
       "Detailed attorney profiles with practice areas",
       "Geographic coverage and language capabilities",
@@ -51,6 +56,8 @@ const features = [
     icon: GitBranch,
     title: "Matching Rules Engine",
     description: "Configurable rules that power intelligent attorney matching.",
+    image: "/demo-screenshots/matching.png",
+    imageAlt: "Attorney matching screen showing ranked match results with score breakdowns for a selected intake",
     capabilities: [
       "Practice area and specialty matching",
       "Geographic proximity scoring",
@@ -63,6 +70,8 @@ const features = [
     icon: CreditCard,
     title: "Payment Logging",
     description: "Optional payment tracking for programs that collect referral fees.",
+    image: "/demo-screenshots/payments.png",
+    imageAlt: "New client intake wizard with multi-step form for caller info, legal issue, preferences, and review",
     capabilities: [
       "Record payment amounts and methods",
       "Track payment status by intake",
@@ -74,6 +83,8 @@ const features = [
     icon: BarChart3,
     title: "Reporting & Export",
     description: "Comprehensive analytics and data export capabilities.",
+    image: "/demo-screenshots/reports.png",
+    imageAlt: "Reports and analytics dashboard with intake status distribution, practice area chart, and weekly activity",
     capabilities: [
       "Pre-built reports for common metrics",
       "Volume by practice area and geography",
@@ -85,6 +96,8 @@ const features = [
     icon: History,
     title: "Audit Trail",
     description: "Complete transparency with detailed activity logging.",
+    image: "/demo-screenshots/audit.png",
+    imageAlt: "Settings page showing organization configuration, matching rules, and notification preferences",
     capabilities: [
       "Every action timestamped and attributed",
       "Intake history and status changes",
@@ -194,13 +207,33 @@ export default function Features() {
                   </ul>
                 </div>
                 <div className="flex-1">
-                  <Card className="bg-muted/50 border-dashed h-full">
-                    <CardContent className="p-6 h-full flex items-center justify-center">
-                      <div className="aspect-video w-full bg-muted rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-muted-foreground">Feature screenshot placeholder</span>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  {/* macOS-style window frame */}
+                  <div className="rounded-xl border border-border bg-card shadow-2xl overflow-hidden">
+                    {/* Title bar */}
+                    <div className="flex items-center gap-1.5 px-4 py-2.5 bg-muted/60 border-b border-border">
+                      <span className="h-3 w-3 rounded-full bg-destructive/70" aria-hidden="true" />
+                      <span className="h-3 w-3 rounded-full bg-warning/70" aria-hidden="true" />
+                      <span className="h-3 w-3 rounded-full bg-success/70" aria-hidden="true" />
+                    </div>
+                    {/* Screenshot */}
+                    {index === 0 ? (
+                      <img
+                        src={feature.image}
+                        alt={feature.imageAlt}
+                        loading="eager"
+                        decoding="async"
+                        fetchPriority="high"
+                        className="block w-full h-auto aspect-video object-cover object-top"
+                      />
+                    ) : (
+                      <LazyImage
+                        src={feature.image}
+                        alt={feature.imageAlt}
+                        wrapperClassName="aspect-video"
+                        className="block w-full h-full object-cover object-top"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             ))}

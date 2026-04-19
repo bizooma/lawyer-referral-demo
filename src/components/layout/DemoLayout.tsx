@@ -61,7 +61,7 @@ export function DemoLayout() {
             <div className="p-6 border-b border-primary-foreground/20">
               <div className="flex items-center justify-between">
                 <div>
-                  <h1 className="text-xl font-bold">RefferEase</h1>
+                  <h1 className="text-xl font-bold">LawyerReferral</h1>
                   <p className="text-xs text-primary-foreground/70 mt-1">Lawyer Referral Platform</p>
                 </div>
                 <Button
@@ -141,7 +141,7 @@ export function DemoLayout() {
             >
               <Menu className="h-5 w-5" />
             </Button>
-            <h1 className="font-semibold text-primary">RefferEase</h1>
+            <h1 className="font-semibold text-primary">LawyerReferral</h1>
             <div className="w-10" /> {/* Spacer for centering */}
           </header>
 
