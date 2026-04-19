@@ -207,13 +207,33 @@ export default function Features() {
                   </ul>
                 </div>
                 <div className="flex-1">
-                  <Card className="bg-muted/50 border-dashed h-full">
-                    <CardContent className="p-6 h-full flex items-center justify-center">
-                      <div className="aspect-video w-full bg-muted rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-muted-foreground">Feature screenshot placeholder</span>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  {/* macOS-style window frame */}
+                  <div className="rounded-xl border border-border bg-card shadow-2xl overflow-hidden">
+                    {/* Title bar */}
+                    <div className="flex items-center gap-1.5 px-4 py-2.5 bg-muted/60 border-b border-border">
+                      <span className="h-3 w-3 rounded-full bg-destructive/70" aria-hidden="true" />
+                      <span className="h-3 w-3 rounded-full bg-yellow-500/70" aria-hidden="true" />
+                      <span className="h-3 w-3 rounded-full bg-success/70" aria-hidden="true" />
+                    </div>
+                    {/* Screenshot */}
+                    {index === 0 ? (
+                      <img
+                        src={feature.image}
+                        alt={feature.imageAlt}
+                        loading="eager"
+                        decoding="async"
+                        fetchPriority="high"
+                        className="block w-full h-auto aspect-video object-cover object-top"
+                      />
+                    ) : (
+                      <LazyImage
+                        src={feature.image}
+                        alt={feature.imageAlt}
+                        wrapperClassName="aspect-video"
+                        className="block w-full h-full object-cover object-top"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
