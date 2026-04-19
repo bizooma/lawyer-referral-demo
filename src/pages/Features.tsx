@@ -212,7 +212,7 @@ export default function Features() {
                     {/* Title bar */}
                     <div className="flex items-center gap-1.5 px-4 py-2.5 bg-muted/60 border-b border-border">
                       <span className="h-3 w-3 rounded-full bg-destructive/70" aria-hidden="true" />
-                      <span className="h-3 w-3 rounded-full bg-yellow-500/70" aria-hidden="true" />
+                      <span className="h-3 w-3 rounded-full bg-warning/70" aria-hidden="true" />
                       <span className="h-3 w-3 rounded-full bg-success/70" aria-hidden="true" />
                     </div>
                     {/* Screenshot */}
