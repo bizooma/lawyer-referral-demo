@@ -29,6 +29,8 @@ const features = [
     icon: LayoutDashboard,
     title: "Intake Dashboard",
     description: "A centralized command center for managing all incoming referral requests.",
+    image: "/demo-screenshots/dashboard.png",
+    imageAlt: "Intake dashboard showing total intakes, recent client inquiries, and quick actions",
     capabilities: [
       "Real-time intake queue with status indicators",
       "Quick filters by status, date, and practice area",
@@ -40,6 +42,8 @@ const features = [
     icon: Users,
     title: "Attorney Directory",
     description: "Comprehensive management of your panel attorney roster.",
+    image: "/demo-screenshots/attorneys.png",
+    imageAlt: "Attorney directory listing 25 attorneys with practice areas, counties, languages, and availability status",
     capabilities: [
       "Detailed attorney profiles with practice areas",
       "Geographic coverage and language capabilities",
@@ -51,6 +55,8 @@ const features = [
     icon: GitBranch,
     title: "Matching Rules Engine",
     description: "Configurable rules that power intelligent attorney matching.",
+    image: "/demo-screenshots/matching.png",
+    imageAlt: "Attorney matching screen showing ranked match results with score breakdowns for a selected intake",
     capabilities: [
       "Practice area and specialty matching",
       "Geographic proximity scoring",
@@ -63,6 +69,8 @@ const features = [
     icon: CreditCard,
     title: "Payment Logging",
     description: "Optional payment tracking for programs that collect referral fees.",
+    image: "/demo-screenshots/payments.png",
+    imageAlt: "New client intake wizard with multi-step form for caller info, legal issue, preferences, and review",
     capabilities: [
       "Record payment amounts and methods",
       "Track payment status by intake",
@@ -74,6 +82,8 @@ const features = [
     icon: BarChart3,
     title: "Reporting & Export",
     description: "Comprehensive analytics and data export capabilities.",
+    image: "/demo-screenshots/reports.png",
+    imageAlt: "Reports and analytics dashboard with intake status distribution, practice area chart, and weekly activity",
     capabilities: [
       "Pre-built reports for common metrics",
       "Volume by practice area and geography",
@@ -85,6 +95,8 @@ const features = [
     icon: History,
     title: "Audit Trail",
     description: "Complete transparency with detailed activity logging.",
+    image: "/demo-screenshots/audit.png",
+    imageAlt: "Settings page showing organization configuration, matching rules, and notification preferences",
     capabilities: [
       "Every action timestamped and attributed",
       "Intake history and status changes",
