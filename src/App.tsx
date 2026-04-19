@@ -10,6 +10,7 @@ import { ClientLayout } from "@/components/layout/ClientLayout";
 import { AttorneyLayout } from "@/components/layout/AttorneyLayout";
 import { DemoAuthProvider } from "@/contexts/DemoAuthContext";
 import { DemoLoginGuard, StaffGuard, ClientGuard, AttorneyGuard } from "@/components/auth/DemoAuthGuard";
+import ScrollToTop from "@/components/ScrollToTop";
 import Home from "./pages/Home";
 import HowItWorks from "./pages/HowItWorks";
 import Features from "./pages/Features";
@@ -50,6 +51,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <DemoAuthProvider>
             <Routes>
               {/* Marketing Site */}
