@@ -39,11 +39,11 @@ export function MarketingFooter() {
             <div className="mt-4 space-y-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <span>info@lawyerreferralprogram.com</span>
+                <span>joe@bizooma.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
-                <span>(555) 123-4567</span>
+                <span>904-295-6670</span>
               </div>
             </div>
           </div>
