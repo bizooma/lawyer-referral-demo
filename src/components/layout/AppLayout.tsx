@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate, Navigate } from "react-router-dom";
-import { LayoutDashboard, Users, Scale, Settings, LogOut, Building2 } from "lucide-react";
+import { LayoutDashboard, Users, Scale, Settings, LogOut, Building2, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -15,6 +15,7 @@ const navigation = [
   { name: "Dashboard", href: "/app", end: true, icon: LayoutDashboard },
   { name: "Attorneys", href: "/app/attorneys", icon: Users },
   { name: "Matching Rules", href: "/app/matching", icon: Scale },
+  { name: "Domains", href: "/app/domains", icon: Globe },
   { name: "Settings", href: "/app/settings", icon: Settings },
 ];
 
@@ -53,8 +54,18 @@ export function AppLayout() {
 
   return (
     <div className="min-h-screen bg-background flex">
-      <aside className="w-64 bg-primary text-primary-foreground flex flex-col">
+      <aside
+        className="w-64 bg-primary text-primary-foreground flex flex-col"
+        style={activeMembership?.organization.primary_color ? { backgroundColor: activeMembership.organization.primary_color } : undefined}
+      >
         <div className="p-6 border-b border-primary-foreground/20">
+          {activeMembership?.organization.logo_url && (
+            <img
+              src={activeMembership.organization.logo_url}
+              alt={`${activeMembership.organization.name} logo`}
+              className="h-10 w-auto mb-3 bg-white/95 rounded p-1"
+            />
+          )}
           <p className="text-xs uppercase tracking-wider text-primary-foreground/60 mb-2">
             Organization
           </p>

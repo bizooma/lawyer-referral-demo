@@ -32,6 +32,7 @@ import AppDashboard from "./pages/app/AppDashboard";
 import AppAttorneys from "./pages/app/AppAttorneys";
 import AppMatching from "./pages/app/AppMatching";
 import AppSettings from "./pages/app/AppSettings";
+import AppDomains from "./pages/app/AppDomains";
 // Demo - Staff
 import DemoLogin from "./pages/demo/DemoLogin";
 import Dashboard from "./pages/demo/Dashboard";
@@ -91,6 +92,7 @@ const App = () => (
                   <Route path="/app" element={<AppDashboard />} />
                   <Route path="/app/attorneys" element={<AppAttorneys />} />
                   <Route path="/app/matching" element={<AppMatching />} />
+                  <Route path="/app/domains" element={<AppDomains />} />
                   <Route path="/app/settings" element={<AppSettings />} />
                 </Route>
 

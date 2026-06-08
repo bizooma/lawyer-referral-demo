@@ -385,6 +385,56 @@ export type Database = {
           },
         ]
       }
+      organization_domains: {
+        Row: {
+          created_at: string
+          domain_type: string
+          hostname: string
+          id: string
+          is_primary: boolean
+          last_checked_at: string | null
+          organization_id: string
+          ssl_status: string
+          status: string
+          updated_at: string
+          verification_token: string
+        }
+        Insert: {
+          created_at?: string
+          domain_type: string
+          hostname: string
+          id?: string
+          is_primary?: boolean
+          last_checked_at?: string | null
+          organization_id: string
+          ssl_status?: string
+          status?: string
+          updated_at?: string
+          verification_token?: string
+        }
+        Update: {
+          created_at?: string
+          domain_type?: string
+          hostname?: string
+          id?: string
+          is_primary?: boolean
+          last_checked_at?: string | null
+          organization_id?: string
+          ssl_status?: string
+          status?: string
+          updated_at?: string
+          verification_token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_domains_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organization_settings: {
         Row: {
           contact_email: string | null
@@ -428,6 +478,7 @@ export type Database = {
           contact_phone: string | null
           created_at: string
           disclaimer_text: string | null
+          favicon_url: string | null
           id: string
           is_demo: boolean
           logo_url: string | null
@@ -438,7 +489,9 @@ export type Database = {
           status: string
           stripe_customer_id: string | null
           subdomain: string | null
+          support_url: string | null
           updated_at: string
+          widget_intro: string | null
         }
         Insert: {
           accent_color?: string | null
@@ -446,6 +499,7 @@ export type Database = {
           contact_phone?: string | null
           created_at?: string
           disclaimer_text?: string | null
+          favicon_url?: string | null
           id?: string
           is_demo?: boolean
           logo_url?: string | null
@@ -456,7 +510,9 @@ export type Database = {
           status?: string
           stripe_customer_id?: string | null
           subdomain?: string | null
+          support_url?: string | null
           updated_at?: string
+          widget_intro?: string | null
         }
         Update: {
           accent_color?: string | null
@@ -464,6 +520,7 @@ export type Database = {
           contact_phone?: string | null
           created_at?: string
           disclaimer_text?: string | null
+          favicon_url?: string | null
           id?: string
           is_demo?: boolean
           logo_url?: string | null
@@ -474,7 +531,9 @@ export type Database = {
           status?: string
           stripe_customer_id?: string | null
           subdomain?: string | null
+          support_url?: string | null
           updated_at?: string
+          widget_intro?: string | null
         }
         Relationships: []
       }
@@ -594,6 +653,22 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_branding_by_host: {
+        Args: { _host: string }
+        Returns: {
+          accent_color: string
+          contact_email: string
+          contact_phone: string
+          disclaimer_text: string
+          favicon_url: string
+          logo_url: string
+          name: string
+          organization_id: string
+          primary_color: string
+          support_url: string
+          widget_intro: string
+        }[]
+      }
       has_role: {
         Args: {
           _org_id: string
