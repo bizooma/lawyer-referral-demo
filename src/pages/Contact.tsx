@@ -192,7 +192,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="font-medium">Email</p>
-                      <p className="text-muted-foreground">hello@lawyerreferralprogram.com</p>
+                      <p className="text-muted-foreground">joe@bizooma.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
