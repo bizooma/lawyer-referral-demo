@@ -45,11 +45,17 @@ export function MarketingNav() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link to="/demo" className="hidden sm:block">
-            <Button variant="hero" size="sm">
-              Access Demo
+          <Link to="/login" className="hidden sm:block">
+            <Button variant="ghost" size="sm">
+              Sign In
             </Button>
           </Link>
+          <Link to="/signup" className="hidden sm:block">
+            <Button variant="hero" size="sm">
+              Get Started
+            </Button>
+          </Link>
+
           
           {/* Mobile menu button */}
           <button
