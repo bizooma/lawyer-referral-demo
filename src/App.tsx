@@ -8,8 +8,11 @@ import { MarketingLayout } from "@/components/layout/MarketingLayout";
 import { DemoLayout } from "@/components/layout/DemoLayout";
 import { ClientLayout } from "@/components/layout/ClientLayout";
 import { AttorneyLayout } from "@/components/layout/AttorneyLayout";
+import { AppLayout } from "@/components/layout/AppLayout";
 import { DemoAuthProvider } from "@/contexts/DemoAuthContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { DemoLoginGuard, StaffGuard, ClientGuard, AttorneyGuard } from "@/components/auth/DemoAuthGuard";
+import { RequireAuth } from "@/components/auth/RequireAuth";
 import ScrollToTop from "@/components/ScrollToTop";
 import Home from "./pages/Home";
 import HowItWorks from "./pages/HowItWorks";
@@ -19,6 +22,16 @@ import Ethics from "./pages/Ethics";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+// Real auth
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
+// Real app
+import AppDashboard from "./pages/app/AppDashboard";
+import AppAttorneys from "./pages/app/AppAttorneys";
+import AppMatching from "./pages/app/AppMatching";
+import AppSettings from "./pages/app/AppSettings";
 // Demo - Staff
 import DemoLogin from "./pages/demo/DemoLogin";
 import Dashboard from "./pages/demo/Dashboard";
@@ -40,6 +53,7 @@ import AttorneyReferrals from "./pages/demo/attorney/AttorneyReferrals";
 import AttorneyProfile from "./pages/demo/attorney/AttorneyProfile";
 import AttorneyAvailability from "./pages/demo/attorney/AttorneyAvailability";
 import AttorneySignup from "./pages/demo/attorney/AttorneySignup";
+
 
 const queryClient = new QueryClient();
 
