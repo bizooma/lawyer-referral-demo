@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Scale, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
+import bizoomaLogo from "@/assets/bizooma-logo.png.asset.json";
 
 const footerLinks = {
   product: [
@@ -29,10 +30,19 @@ export function MarketingFooter() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 font-semibold text-lg">
-              <Scale className="h-6 w-6 text-primary" />
-              <span>Lawyer Referral Program</span>
-            </Link>
+            <a
+              href="https://bizooma.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+              aria-label="Bizooma Creative Agency"
+            >
+              <img
+                src={bizoomaLogo.url}
+                alt="Bizooma Creative Agency"
+                className="h-16 w-auto"
+              />
+            </a>
             <p className="mt-4 text-sm text-muted-foreground">
               Modern lawyer referral infrastructure for bar associations.
             </p>
