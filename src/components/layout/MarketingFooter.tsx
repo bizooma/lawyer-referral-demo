@@ -40,7 +40,7 @@ export function MarketingFooter() {
               <img
                 src={bizoomaLogo.url}
                 alt="Bizooma Creative Agency"
-                className="h-16 w-auto"
+                className="h-24 w-auto"
               />
             </a>
             <p className="mt-4 text-sm text-muted-foreground">
