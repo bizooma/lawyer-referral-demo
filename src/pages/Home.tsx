@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SEO } from "@/components/SEO";
 import { OrganizationSchema, SoftwareApplicationSchema, WebPageSchema, FAQPageSchema } from "@/components/StructuredData";
+import heroBg from "@/assets/lawyer-meeting-hero.webp.asset.json";
 import {
   Accordion,
   AccordionContent,
@@ -84,6 +85,12 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="hero-gradient relative overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroBg.url})` }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-primary/75" aria-hidden="true" />
         <div className="pattern-dots absolute inset-0" />
         <div className="section-container relative py-20 lg:py-32">
           <div className="mx-auto max-w-4xl text-center">
