@@ -77,6 +77,7 @@ export type Database = {
           last_assigned_date: string | null
           name: string
           notes: string | null
+          organization_id: string | null
           phone: string | null
           practice_areas: Database["public"]["Enums"]["practice_area"][]
           updated_at: string | null
@@ -95,6 +96,7 @@ export type Database = {
           last_assigned_date?: string | null
           name: string
           notes?: string | null
+          organization_id?: string | null
           phone?: string | null
           practice_areas: Database["public"]["Enums"]["practice_area"][]
           updated_at?: string | null
@@ -113,11 +115,20 @@ export type Database = {
           last_assigned_date?: string | null
           name?: string
           notes?: string | null
+          organization_id?: string | null
           phone?: string | null
           practice_areas?: Database["public"]["Enums"]["practice_area"][]
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "attorneys_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       audit_logs: {
         Row: {
@@ -127,6 +138,7 @@ export type Database = {
           details: Json | null
           id: string
           intake_id: string | null
+          organization_id: string | null
           performed_by: string | null
         }
         Insert: {
@@ -136,6 +148,7 @@ export type Database = {
           details?: Json | null
           id?: string
           intake_id?: string | null
+          organization_id?: string | null
           performed_by?: string | null
         }
         Update: {
@@ -145,6 +158,7 @@ export type Database = {
           details?: Json | null
           id?: string
           intake_id?: string | null
+          organization_id?: string | null
           performed_by?: string | null
         }
         Relationships: [
@@ -160,6 +174,13 @@ export type Database = {
             columns: ["intake_id"]
             isOneToOne: false
             referencedRelation: "intakes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "audit_logs_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
             referencedColumns: ["id"]
           },
         ]
@@ -242,6 +263,7 @@ export type Database = {
           issue_date: string | null
           language_preference: string | null
           narrative: string | null
+          organization_id: string | null
           payment_amount: number | null
           payment_method: string | null
           payment_notes: string | null
@@ -266,6 +288,7 @@ export type Database = {
           issue_date?: string | null
           language_preference?: string | null
           narrative?: string | null
+          organization_id?: string | null
           payment_amount?: number | null
           payment_method?: string | null
           payment_notes?: string | null
@@ -290,6 +313,7 @@ export type Database = {
           issue_date?: string | null
           language_preference?: string | null
           narrative?: string | null
+          organization_id?: string | null
           payment_amount?: number | null
           payment_method?: string | null
           payment_notes?: string | null
@@ -314,6 +338,13 @@ export type Database = {
             referencedRelation: "demo_users"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "intakes_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
         ]
       }
       matching_rules: {
@@ -322,6 +353,7 @@ export type Database = {
           description: string | null
           id: string
           is_active: boolean | null
+          organization_id: string | null
           rule_name: string
           weight: number
         }
@@ -330,6 +362,7 @@ export type Database = {
           description?: string | null
           id?: string
           is_active?: boolean | null
+          organization_id?: string | null
           rule_name: string
           weight: number
         }
@@ -338,10 +371,19 @@ export type Database = {
           description?: string | null
           id?: string
           is_active?: boolean | null
+          organization_id?: string | null
           rule_name?: string
           weight?: number
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "matching_rules_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       organization_settings: {
         Row: {
@@ -379,6 +421,87 @@ export type Database = {
         }
         Relationships: []
       }
+      organizations: {
+        Row: {
+          accent_color: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          created_at: string
+          disclaimer_text: string | null
+          id: string
+          is_demo: boolean
+          logo_url: string | null
+          name: string
+          plan_tier: string
+          primary_color: string | null
+          slug: string
+          status: string
+          stripe_customer_id: string | null
+          subdomain: string | null
+          updated_at: string
+        }
+        Insert: {
+          accent_color?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          disclaimer_text?: string | null
+          id?: string
+          is_demo?: boolean
+          logo_url?: string | null
+          name: string
+          plan_tier?: string
+          primary_color?: string | null
+          slug: string
+          status?: string
+          stripe_customer_id?: string | null
+          subdomain?: string | null
+          updated_at?: string
+        }
+        Update: {
+          accent_color?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          disclaimer_text?: string | null
+          id?: string
+          is_demo?: boolean
+          logo_url?: string | null
+          name?: string
+          plan_tier?: string
+          primary_color?: string | null
+          slug?: string
+          status?: string
+          stripe_customer_id?: string | null
+          subdomain?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       referral_responses: {
         Row: {
           attorney_id: string
@@ -386,6 +509,7 @@ export type Database = {
           id: string
           intake_id: string
           notes: string | null
+          organization_id: string | null
           response_date: string | null
           status: Database["public"]["Enums"]["referral_status"] | null
         }
@@ -395,6 +519,7 @@ export type Database = {
           id?: string
           intake_id: string
           notes?: string | null
+          organization_id?: string | null
           response_date?: string | null
           status?: Database["public"]["Enums"]["referral_status"] | null
         }
@@ -404,6 +529,7 @@ export type Database = {
           id?: string
           intake_id?: string
           notes?: string | null
+          organization_id?: string | null
           response_date?: string | null
           status?: Database["public"]["Enums"]["referral_status"] | null
         }
@@ -422,6 +548,45 @@ export type Database = {
             referencedRelation: "intakes"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "referral_responses_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          organization_id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          organization_id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          organization_id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_roles_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
@@ -429,9 +594,22 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _org_id: string
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_org_member: {
+        Args: { _org_id: string; _user_id: string }
+        Returns: boolean
+      }
+      user_org_ids: { Args: { _user_id: string }; Returns: string[] }
     }
     Enums: {
+      app_role: "program_admin" | "intake_specialist"
       demo_role: "intake_specialist" | "program_admin" | "client" | "attorney"
       intake_status:
         | "new"
@@ -575,6 +753,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["program_admin", "intake_specialist"],
       demo_role: ["intake_specialist", "program_admin", "client", "attorney"],
       intake_status: [
         "new",
