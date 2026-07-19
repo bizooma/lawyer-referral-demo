@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, FileText, Scale, ArrowRight } from "lucide-react";
+import { Users, FileText, Scale, ArrowRight, AlertTriangle } from "lucide-react";
 
 interface Counts {
   attorneys: number;
@@ -16,6 +16,7 @@ export default function AppDashboard() {
   const { activeMembership, activeOrgId } = useAuth();
   const [counts, setCounts] = useState<Counts>({ attorneys: 0, intakes: 0, matchingRules: 0 });
   const [loading, setLoading] = useState(true);
+  const [complianceReady, setComplianceReady] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (!activeOrgId) return;
@@ -31,6 +32,9 @@ export default function AppDashboard() {
         matchingRules: m.count ?? 0,
       });
       setLoading(false);
+    });
+    supabase.rpc("org_is_compliance_ready", { _org_id: activeOrgId }).then(({ data }) => {
+      setComplianceReady(Boolean(data));
     });
   }, [activeOrgId]);
 
@@ -51,7 +55,22 @@ export default function AppDashboard() {
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      {complianceReady === false && !activeMembership?.organization.is_demo && (
+        <div className="rounded-lg border border-amber-300 bg-amber-50 p-4 flex items-start gap-3">
+          <AlertTriangle className="h-5 w-5 text-amber-700 shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <p className="font-medium text-amber-900">Compliance setup incomplete</p>
+            <p className="text-sm text-amber-800">
+              Complete and attest your compliance setup before accepting public intakes.
+            </p>
+          </div>
+          <Link to="/app/compliance">
+            <Button size="sm">Set up compliance</Button>
+          </Link>
+        </div>
+      )}
+
+      <div className="grid gap-4 md:grid-cols-3"></div>
         {cards.map((c) => (
           <Card key={c.label}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
