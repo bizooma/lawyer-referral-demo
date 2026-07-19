@@ -38,6 +38,8 @@ import AppIntakes from "./pages/app/AppIntakes";
 import AppIntakeDetail from "./pages/app/AppIntakeDetail";
 import AppReferrals from "./pages/app/AppReferrals";
 import AppReports from "./pages/app/AppReports";
+// Public branded intake portal
+import PublicIntake from "./pages/public/PublicIntake";
 // Real attorney portal
 import { AttorneyPortalLayout } from "@/components/layout/AttorneyPortalLayout";
 import RealAttorneyDashboard from "./pages/attorney/AttorneyDashboard";
