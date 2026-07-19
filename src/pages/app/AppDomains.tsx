@@ -89,12 +89,6 @@ export default function AppDomains() {
     load();
   };
 
-  const remove = async (id: string) => {
-    if (!confirm("Remove this domain?")) return;
-    const { error } = await supabase.from("organization_domains").delete().eq("id", id);
-    if (error) return toast.error(error.message);
-    load();
-  };
 
   const setPrimary = async (d: Domain) => {
     if (!activeOrgId) return;
