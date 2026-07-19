@@ -101,6 +101,10 @@ const App = () => (
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
 
+                {/* Public branded intake portal (anon-writable via SECURITY DEFINER RPC) */}
+                <Route path="/i/:slug" element={<PublicIntake />} />
+                <Route path="/intake" element={<PublicIntake />} />
+
                 {/* Real authenticated app (multi-tenant) */}
                 <Route element={<RequireAuth><AppLayout /></RequireAuth>}>
                   <Route path="/app" element={<AppDashboard />} />
