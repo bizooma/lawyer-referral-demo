@@ -277,6 +277,9 @@ export default function AppSettings() {
                   </div>
                 </div>
               </div>
+              </fieldset>
+
+
 
               <div className="space-y-2">
                 <Label htmlFor="widget">Widget Intro Text</Label>
