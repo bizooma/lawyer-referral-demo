@@ -38,6 +38,8 @@ import AppIntakes from "./pages/app/AppIntakes";
 import AppIntakeDetail from "./pages/app/AppIntakeDetail";
 import AppReferrals from "./pages/app/AppReferrals";
 import AppReports from "./pages/app/AppReports";
+// Public branded intake portal
+import PublicIntake from "./pages/public/PublicIntake";
 // Real attorney portal
 import { AttorneyPortalLayout } from "@/components/layout/AttorneyPortalLayout";
 import RealAttorneyDashboard from "./pages/attorney/AttorneyDashboard";
@@ -98,6 +100,10 @@ const App = () => (
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+
+                {/* Public branded intake portal (anon-writable via SECURITY DEFINER RPC) */}
+                <Route path="/i/:slug" element={<PublicIntake />} />
+                <Route path="/intake" element={<PublicIntake />} />
 
                 {/* Real authenticated app (multi-tenant) */}
                 <Route element={<RequireAuth><AppLayout /></RequireAuth>}>
