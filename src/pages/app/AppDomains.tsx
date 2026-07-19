@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Plus, Trash2, Globe, Copy, CheckCircle2 } from "lucide-react";
+import { Plus, Trash2, Globe, Copy, CheckCircle2, ShieldCheck, Loader2 } from "lucide-react";
 
 const PLATFORM_DOMAIN = "lawyerreferralprogram.com";
 const PLATFORM_IP = "185.158.133.1";
