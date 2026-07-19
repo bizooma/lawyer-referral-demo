@@ -125,8 +125,8 @@ export default function AppAttorneys() {
       organization_id: activeOrgId,
     };
     const q = editing.id
-      ? supabase.from("attorneys").update(payload).eq("id", editing.id)
-      : supabase.from("attorneys").insert(payload);
+      ? supabase.from("attorneys").update(payload as any).eq("id", editing.id)
+      : supabase.from("attorneys").insert(payload as any);
     const { error } = await q;
     setSaving(false);
     if (error) { toast.error(error.message); return; }
