@@ -33,6 +33,7 @@ import AppAttorneys from "./pages/app/AppAttorneys";
 import AppMatching from "./pages/app/AppMatching";
 import AppSettings from "./pages/app/AppSettings";
 import AppDomains from "./pages/app/AppDomains";
+import AppCompliance from "./pages/app/AppCompliance";
 // Demo - Staff
 import DemoLogin from "./pages/demo/DemoLogin";
 import Dashboard from "./pages/demo/Dashboard";
