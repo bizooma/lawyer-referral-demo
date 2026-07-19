@@ -90,6 +90,21 @@ export default function AppDomains() {
     load();
   };
 
+  const verify = async (d: Domain) => {
+    setVerifying(d.id);
+    const { data, error } = await supabase.functions.invoke("verify-domain", {
+      body: { domain_id: d.id },
+    });
+    setVerifying(null);
+    if (error) return toast.error(error.message);
+    if ((data as { ok?: boolean })?.ok) {
+      toast.success(`${d.hostname} verified`);
+    } else {
+      toast.error((data as { message?: string })?.message ?? "Verification failed");
+    }
+    load();
+  };
+
 
   const setPrimary = async (d: Domain) => {
     if (!activeOrgId) return;
