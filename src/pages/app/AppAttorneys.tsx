@@ -187,7 +187,11 @@ export default function AppAttorneys() {
               {attorneys.map((a) => (
                 <li key={a.id} className="py-3 flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="font-medium">{a.name} {a.is_active === false && <span className="text-xs text-muted-foreground">(inactive)</span>}</p>
+                    <p className="font-medium">
+                      {a.name}
+                      {a.is_active === false && <span className="text-xs text-muted-foreground"> (inactive)</span>}
+                      {a.user_id && <span className="ml-2 text-xs rounded bg-emerald-100 text-emerald-700 px-1.5 py-0.5">Portal linked</span>}
+                    </p>
                     <p className="text-sm text-muted-foreground truncate">
                       {a.firm_name ? `${a.firm_name} · ` : ""}{a.email} · Bar #{a.bar_number}
                     </p>
@@ -197,6 +201,11 @@ export default function AppAttorneys() {
                   </div>
                   {isAdmin && (
                     <div className="flex gap-2">
+                      {!a.user_id && (
+                        <Button size="sm" variant="outline" onClick={() => invite(a)} title="Send portal invite">
+                          <UserPlus className="h-3.5 w-3.5 mr-1" /> Invite
+                        </Button>
+                      )}
                       <Button size="sm" variant="outline" onClick={() => openEdit(a)}><Pencil className="h-3.5 w-3.5" /></Button>
                       <Button size="sm" variant="outline" onClick={() => remove(a)}><Trash2 className="h-3.5 w-3.5" /></Button>
                     </div>
