@@ -38,6 +38,13 @@ import AppIntakes from "./pages/app/AppIntakes";
 import AppIntakeDetail from "./pages/app/AppIntakeDetail";
 import AppReferrals from "./pages/app/AppReferrals";
 import AppReports from "./pages/app/AppReports";
+// Real attorney portal
+import { AttorneyPortalLayout } from "@/components/layout/AttorneyPortalLayout";
+import RealAttorneyDashboard from "./pages/attorney/AttorneyDashboard";
+import RealAttorneyReferrals from "./pages/attorney/AttorneyReferrals";
+import RealAttorneyProfile from "./pages/attorney/AttorneyProfile";
+import RealAttorneyAvailability from "./pages/attorney/AttorneyAvailability";
+import AcceptInvite from "./pages/attorney/AcceptInvite";
 // Demo - Staff
 import DemoLogin from "./pages/demo/DemoLogin";
 import Dashboard from "./pages/demo/Dashboard";
