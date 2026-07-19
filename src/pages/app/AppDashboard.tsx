@@ -24,18 +24,19 @@ export default function AppDashboard() {
   useEffect(() => {
     if (!activeOrgId) return;
     setLoading(true);
-    const c = (col: string, val: string) =>
-      supabase.from("intakes").select("id", { count: "exact", head: true }).eq("organization_id", activeOrgId).eq(col, val);
-    const r = (val: string) =>
-      supabase.from("referral_responses").select("id", { count: "exact", head: true }).eq("organization_id", activeOrgId).eq("status", val as any);
-    Promise.all([
-      supabase.from("attorneys").select("id", { count: "exact", head: true }).eq("organization_id", activeOrgId),
-      c("status", "new"),
-      c("status", "referred"),
-      c("status", "closed"),
-      r("pending"),
-      r("accepted"),
-    ]).then(([a, iN, iR, iC, rP, rA]) => {
+    (async () => {
+      const countIntake = (val: string) =>
+        supabase.from("intakes").select("id", { count: "exact", head: true })
+          .eq("organization_id", activeOrgId).eq("status", val as any);
+      const countRef = (val: string) =>
+        supabase.from("referral_responses").select("id", { count: "exact", head: true })
+          .eq("organization_id", activeOrgId).eq("status", val as any);
+      const a = await supabase.from("attorneys").select("id", { count: "exact", head: true }).eq("organization_id", activeOrgId);
+      const iN = await countIntake("new");
+      const iR = await countIntake("referred");
+      const iC = await countIntake("closed");
+      const rP = await countRef("pending");
+      const rA = await countRef("accepted");
       setCounts({
         attorneys: a.count ?? 0,
         intakesNew: iN.count ?? 0,
@@ -45,7 +46,7 @@ export default function AppDashboard() {
         referralsAccepted: rA.count ?? 0,
       });
       setLoading(false);
-    });
+    })();
     supabase.rpc("org_is_compliance_ready", { _org_id: activeOrgId }).then(({ data }) => {
       setComplianceReady(Boolean(data));
     });
