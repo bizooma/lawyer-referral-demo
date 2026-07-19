@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Pencil, Trash2, Plus } from "lucide-react";
+import { Pencil, Trash2, Plus, UserPlus } from "lucide-react";
 
 interface Attorney {
   id: string;
@@ -31,6 +31,7 @@ interface Attorney {
   in_good_standing: boolean;
   is_active: boolean | null;
   capacity_status: string | null;
+  user_id: string | null;
 }
 
 const empty = (): Partial<Attorney> => ({
@@ -143,6 +144,15 @@ export default function AppAttorneys() {
     load();
   };
 
+  const invite = async (a: Attorney) => {
+    if (a.user_id) { toast.info("Already linked to an account"); return; }
+    const { data, error } = await (supabase as any).rpc("create_attorney_invite", { _attorney_id: a.id });
+    if (error) return toast.error(error.message);
+    const url = `${window.location.origin}/accept-invite?token=${data}`;
+    try { await navigator.clipboard.writeText(url); } catch {}
+    toast.success("Invite link copied to clipboard", { description: url, duration: 8000 });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -177,7 +187,11 @@ export default function AppAttorneys() {
               {attorneys.map((a) => (
                 <li key={a.id} className="py-3 flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="font-medium">{a.name} {a.is_active === false && <span className="text-xs text-muted-foreground">(inactive)</span>}</p>
+                    <p className="font-medium">
+                      {a.name}
+                      {a.is_active === false && <span className="text-xs text-muted-foreground"> (inactive)</span>}
+                      {a.user_id && <span className="ml-2 text-xs rounded bg-emerald-100 text-emerald-700 px-1.5 py-0.5">Portal linked</span>}
+                    </p>
                     <p className="text-sm text-muted-foreground truncate">
                       {a.firm_name ? `${a.firm_name} · ` : ""}{a.email} · Bar #{a.bar_number}
                     </p>
@@ -187,6 +201,11 @@ export default function AppAttorneys() {
                   </div>
                   {isAdmin && (
                     <div className="flex gap-2">
+                      {!a.user_id && (
+                        <Button size="sm" variant="outline" onClick={() => invite(a)} title="Send portal invite">
+                          <UserPlus className="h-3.5 w-3.5 mr-1" /> Invite
+                        </Button>
+                      )}
                       <Button size="sm" variant="outline" onClick={() => openEdit(a)}><Pencil className="h-3.5 w-3.5" /></Button>
                       <Button size="sm" variant="outline" onClick={() => remove(a)}><Trash2 className="h-3.5 w-3.5" /></Button>
                     </div>

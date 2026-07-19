@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      attorney_invites: {
+        Row: {
+          accepted_at: string | null
+          accepted_by: string | null
+          attorney_id: string
+          created_at: string
+          created_by: string | null
+          email: string
+          expires_at: string
+          id: string
+          organization_id: string
+          token: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          attorney_id: string
+          created_at?: string
+          created_by?: string | null
+          email: string
+          expires_at?: string
+          id?: string
+          organization_id: string
+          token: string
+        }
+        Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          attorney_id?: string
+          created_at?: string
+          created_by?: string | null
+          email?: string
+          expires_at?: string
+          id?: string
+          organization_id?: string
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attorney_invites_attorney_id_fkey"
+            columns: ["attorney_id"]
+            isOneToOne: false
+            referencedRelation: "attorneys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attorney_invites_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       attorney_profiles: {
         Row: {
           accepting_referrals: boolean | null
@@ -85,6 +139,7 @@ export type Database = {
           phone: string | null
           practice_areas: Database["public"]["Enums"]["practice_area"][]
           updated_at: string | null
+          user_id: string | null
           years_experience: number | null
         }
         Insert: {
@@ -109,6 +164,7 @@ export type Database = {
           phone?: string | null
           practice_areas: Database["public"]["Enums"]["practice_area"][]
           updated_at?: string | null
+          user_id?: string | null
           years_experience?: number | null
         }
         Update: {
@@ -133,6 +189,7 @@ export type Database = {
           phone?: string | null
           practice_areas?: Database["public"]["Enums"]["practice_area"][]
           updated_at?: string | null
+          user_id?: string | null
           years_experience?: number | null
         }
         Relationships: [
@@ -755,6 +812,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_attorney_invite: { Args: { _token: string }; Returns: string }
       attest_compliance_profile: {
         Args: { _org_id: string }
         Returns: undefined
@@ -762,6 +820,10 @@ export type Database = {
       attorney_active_referral_count: {
         Args: { _attorney_id: string }
         Returns: number
+      }
+      create_attorney_invite: {
+        Args: { _attorney_id: string }
+        Returns: string
       }
       create_intake: {
         Args: {
@@ -819,10 +881,38 @@ export type Database = {
         Args: { _org_id: string; _user_id: string }
         Returns: boolean
       }
+      is_org_staff: {
+        Args: { _org_id: string; _user_id: string }
+        Returns: boolean
+      }
+      my_attorney_ids: { Args: never; Returns: string[] }
       org_is_compliance_ready: { Args: { _org_id: string }; Returns: boolean }
+      respond_to_referral: {
+        Args: {
+          _notes?: string
+          _referral_id: string
+          _status: Database["public"]["Enums"]["referral_status"]
+        }
+        Returns: undefined
+      }
       send_referral: {
         Args: { _attorney_id: string; _intake_id: string }
         Returns: string
+      }
+      set_my_attorney_availability: {
+        Args: { _is_active: boolean }
+        Returns: undefined
+      }
+      update_my_attorney_profile: {
+        Args: {
+          _counties?: string[]
+          _firm_name?: string
+          _languages?: string[]
+          _max_active_referrals?: number
+          _phone?: string
+          _practice_areas?: Database["public"]["Enums"]["practice_area"][]
+        }
+        Returns: undefined
       }
       update_referral_outcome: {
         Args: {
@@ -836,7 +926,7 @@ export type Database = {
       user_org_ids: { Args: { _user_id: string }; Returns: string[] }
     }
     Enums: {
-      app_role: "program_admin" | "intake_specialist"
+      app_role: "program_admin" | "intake_specialist" | "attorney"
       demo_role: "intake_specialist" | "program_admin" | "client" | "attorney"
       intake_status:
         | "new"
@@ -985,7 +1075,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["program_admin", "intake_specialist"],
+      app_role: ["program_admin", "intake_specialist", "attorney"],
       demo_role: ["intake_specialist", "program_admin", "client", "attorney"],
       intake_status: [
         "new",
