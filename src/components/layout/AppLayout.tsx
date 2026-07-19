@@ -130,6 +130,15 @@ export function AppLayout() {
               {item.name}
             </NavLink>
           ))}
+          {isPlatformAdmin && (
+            <Link
+              to="/platform"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-primary-foreground/80 hover:bg-primary-foreground/10"
+            >
+              <Shield className="h-5 w-5" />
+              Platform Console
+            </Link>
+          )}
         </nav>
 
         <div className="p-4 border-t border-primary-foreground/20">
