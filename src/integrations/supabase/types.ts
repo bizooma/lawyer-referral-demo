@@ -720,6 +720,30 @@ export type Database = {
         }
         Relationships: []
       }
+      public_intake_submissions: {
+        Row: {
+          caller_email: string | null
+          created_at: string
+          id: string
+          ip_hash: string | null
+          organization_id: string
+        }
+        Insert: {
+          caller_email?: string | null
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          organization_id: string
+        }
+        Update: {
+          caller_email?: string | null
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          organization_id?: string
+        }
+        Relationships: []
+      }
       referral_responses: {
         Row: {
           attorney_id: string
@@ -864,6 +888,22 @@ export type Database = {
           widget_intro: string
         }[]
       }
+      get_branding_by_slug: {
+        Args: { _slug: string }
+        Returns: {
+          accent_color: string
+          contact_email: string
+          contact_phone: string
+          disclaimer_text: string
+          favicon_url: string
+          logo_url: string
+          name: string
+          organization_id: string
+          primary_color: string
+          support_url: string
+          widget_intro: string
+        }[]
+      }
       has_role: {
         Args: {
           _org_id: string
@@ -892,6 +932,22 @@ export type Database = {
       mark_domain_verified: { Args: { _domain_id: string }; Returns: undefined }
       my_attorney_ids: { Args: never; Returns: string[] }
       org_is_compliance_ready: { Args: { _org_id: string }; Returns: boolean }
+      public_create_intake: {
+        Args: {
+          _area_of_law: Database["public"]["Enums"]["practice_area"]
+          _caller_email: string
+          _caller_name: string
+          _caller_phone: string
+          _county: string
+          _disclosures_acknowledged: boolean
+          _host: string
+          _language_preference: string
+          _narrative: string
+          _slug: string
+          _urgency: string
+        }
+        Returns: string
+      }
       respond_to_referral: {
         Args: {
           _notes?: string
