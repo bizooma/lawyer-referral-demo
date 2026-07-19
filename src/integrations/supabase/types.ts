@@ -696,6 +696,54 @@ export type Database = {
         }
         Relationships: []
       }
+      plan_tiers: {
+        Row: {
+          code: string
+          created_at: string
+          features: Json
+          max_attorneys: number | null
+          name: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          features?: Json
+          max_attorneys?: number | null
+          name: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          features?: Json
+          max_attorneys?: number | null
+          name?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      platform_admins: {
+        Row: {
+          created_at: string
+          note: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          note?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          note?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -925,6 +973,19 @@ export type Database = {
         Args: { _org_id: string; _user_id: string }
         Returns: boolean
       }
+      is_platform_admin: { Args: never; Returns: boolean }
+      list_all_orgs_for_platform: {
+        Args: never
+        Returns: {
+          attorney_count: number
+          created_at: string
+          id: string
+          is_demo: boolean
+          name: string
+          plan_tier: string
+          slug: string
+        }[]
+      }
       mark_domain_check: {
         Args: { _domain_id: string; _status: string }
         Returns: undefined
@@ -962,6 +1023,10 @@ export type Database = {
       }
       set_my_attorney_availability: {
         Args: { _is_active: boolean }
+        Returns: undefined
+      }
+      set_org_plan_tier: {
+        Args: { _org_id: string; _tier: string }
         Returns: undefined
       }
       update_my_attorney_profile: {
