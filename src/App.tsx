@@ -113,6 +113,17 @@ const App = () => (
                   <Route path="/app/settings" element={<AppSettings />} />
                 </Route>
 
+                {/* Attorney invite accept (public, but prompts login) */}
+                <Route path="/accept-invite" element={<AcceptInvite />} />
+
+                {/* Real attorney portal */}
+                <Route element={<RequireAuth><AttorneyPortalLayout /></RequireAuth>}>
+                  <Route path="/attorney" element={<RealAttorneyDashboard />} />
+                  <Route path="/attorney/referrals" element={<RealAttorneyReferrals />} />
+                  <Route path="/attorney/profile" element={<RealAttorneyProfile />} />
+                  <Route path="/attorney/availability" element={<RealAttorneyAvailability />} />
+                </Route>
+
                 {/* Demo Application - Login & Signup (redirect if already logged in) */}
                 <Route path="/demo" element={<DemoLoginGuard><DemoLogin /></DemoLoginGuard>} />
                 <Route path="/demo/attorney/signup" element={<AttorneySignup />} />
