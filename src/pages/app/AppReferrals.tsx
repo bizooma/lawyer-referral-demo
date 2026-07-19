@@ -40,7 +40,7 @@ export default function AppReferrals() {
     if (!editing) return;
     setSaving(true);
     const { error } = await supabase.rpc("update_referral_outcome", {
-      _referral_id: editing.id, _status: newStatus, _notes: notes || null, _close_intake: false,
+      _referral_id: editing.id, _status: newStatus as any, _notes: notes || null, _close_intake: false,
     });
     setSaving(false);
     if (error) return toast.error(error.message);
