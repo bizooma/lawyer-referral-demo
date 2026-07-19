@@ -240,9 +240,15 @@ export default function AppDomains() {
                       {d.is_primary && <Badge variant="outline">Primary</Badge>}
                     </div>
                     <div className="flex gap-2 shrink-0">
-                      {d.status !== "active" && (
+                      {d.domain_type === "custom" && d.status !== "active" && (
+                        <Button size="sm" variant="outline" onClick={() => verify(d)} disabled={verifying === d.id}>
+                          {verifying === d.id ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : <ShieldCheck className="mr-1 h-3 w-3" />}
+                          Verify DNS
+                        </Button>
+                      )}
+                      {d.domain_type === "subdomain" && d.status !== "active" && (
                         <Badge variant="outline" className="text-xs">
-                          <CheckCircle2 className="mr-1 h-3 w-3" />Awaiting verification
+                          <CheckCircle2 className="mr-1 h-3 w-3" />Awaiting activation
                         </Badge>
                       )}
                       {d.status === "active" && !d.is_primary && (
