@@ -70,7 +70,7 @@ export default function AppDashboard() {
         </div>
       )}
 
-      <div className="grid gap-4 md:grid-cols-3"></div>
+      <div className="grid gap-4 md:grid-cols-3">
         {cards.map((c) => (
           <Card key={c.label}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
