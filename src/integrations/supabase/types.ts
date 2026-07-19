@@ -347,6 +347,36 @@ export type Database = {
           },
         ]
       }
+      jurisdictions: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          name: string
+          template: Json
+          template_version: number
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          name: string
+          template: Json
+          template_version?: number
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          name?: string
+          template?: Json
+          template_version?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       matching_rules: {
         Row: {
           created_at: string | null
@@ -380,6 +410,63 @@ export type Database = {
             foreignKeyName: "matching_rules_organization_id_fkey"
             columns: ["organization_id"]
             isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      org_compliance_profiles: {
+        Row: {
+          attested_at: string | null
+          attested_by: string | null
+          attested_version: number | null
+          config: Json
+          created_at: string
+          id: string
+          jurisdiction_id: string | null
+          organization_id: string
+          status: string
+          template_version_seeded: number | null
+          updated_at: string
+        }
+        Insert: {
+          attested_at?: string | null
+          attested_by?: string | null
+          attested_version?: number | null
+          config: Json
+          created_at?: string
+          id?: string
+          jurisdiction_id?: string | null
+          organization_id: string
+          status?: string
+          template_version_seeded?: number | null
+          updated_at?: string
+        }
+        Update: {
+          attested_at?: string | null
+          attested_by?: string | null
+          attested_version?: number | null
+          config?: Json
+          created_at?: string
+          id?: string
+          jurisdiction_id?: string | null
+          organization_id?: string
+          status?: string
+          template_version_seeded?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "org_compliance_profiles_jurisdiction_id_fkey"
+            columns: ["jurisdiction_id"]
+            isOneToOne: false
+            referencedRelation: "jurisdictions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "org_compliance_profiles_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: true
             referencedRelation: "organizations"
             referencedColumns: ["id"]
           },
@@ -653,6 +740,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      attest_compliance_profile: {
+        Args: { _org_id: string }
+        Returns: undefined
+      }
       create_organization_with_admin: {
         Args: {
           _contact_email?: string
@@ -686,11 +777,16 @@ export type Database = {
         }
         Returns: boolean
       }
+      initialize_compliance_profile: {
+        Args: { _jurisdiction_id: string; _org_id: string }
+        Returns: string
+      }
       is_demo_org: { Args: { _org_id: string }; Returns: boolean }
       is_org_member: {
         Args: { _org_id: string; _user_id: string }
         Returns: boolean
       }
+      org_is_compliance_ready: { Args: { _org_id: string }; Returns: boolean }
       user_org_ids: { Args: { _user_id: string }; Returns: string[] }
     }
     Enums: {
