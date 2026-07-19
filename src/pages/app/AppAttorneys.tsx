@@ -31,6 +31,7 @@ interface Attorney {
   in_good_standing: boolean;
   is_active: boolean | null;
   capacity_status: string | null;
+  user_id: string | null;
 }
 
 const empty = (): Partial<Attorney> => ({
@@ -141,6 +142,15 @@ export default function AppAttorneys() {
     if (error) return toast.error(error.message);
     toast.success("Attorney deleted");
     load();
+  };
+
+  const invite = async (a: Attorney) => {
+    if (a.user_id) { toast.info("Already linked to an account"); return; }
+    const { data, error } = await (supabase as any).rpc("create_attorney_invite", { _attorney_id: a.id });
+    if (error) return toast.error(error.message);
+    const url = `${window.location.origin}/accept-invite?token=${data}`;
+    try { await navigator.clipboard.writeText(url); } catch {}
+    toast.success("Invite link copied to clipboard", { description: url, duration: 8000 });
   };
 
   return (
