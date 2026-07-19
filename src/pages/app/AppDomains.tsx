@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Plus, Trash2, Globe, Copy, CheckCircle2 } from "lucide-react";
+import { Plus, Trash2, Globe, Copy, CheckCircle2, ShieldCheck, Loader2 } from "lucide-react";
 
 const PLATFORM_DOMAIN = "lawyerreferralprogram.com";
 const PLATFORM_IP = "185.158.133.1";
@@ -39,6 +39,7 @@ export default function AppDomains() {
   const [subdomain, setSubdomain] = useState("");
   const [custom, setCustom] = useState("");
   const [creating, setCreating] = useState(false);
+  const [verifying, setVerifying] = useState<string | null>(null);
 
   const load = async () => {
     if (!activeOrgId) return;
@@ -86,6 +87,21 @@ export default function AppDomains() {
     if (!confirm("Remove this domain?")) return;
     const { error } = await supabase.from("organization_domains").delete().eq("id", id);
     if (error) return toast.error(error.message);
+    load();
+  };
+
+  const verify = async (d: Domain) => {
+    setVerifying(d.id);
+    const { data, error } = await supabase.functions.invoke("verify-domain", {
+      body: { domain_id: d.id },
+    });
+    setVerifying(null);
+    if (error) return toast.error(error.message);
+    if ((data as { ok?: boolean })?.ok) {
+      toast.success(`${d.hostname} verified`);
+    } else {
+      toast.error((data as { message?: string })?.message ?? "Verification failed");
+    }
     load();
   };
 
@@ -224,9 +240,15 @@ export default function AppDomains() {
                       {d.is_primary && <Badge variant="outline">Primary</Badge>}
                     </div>
                     <div className="flex gap-2 shrink-0">
-                      {d.status !== "active" && (
+                      {d.domain_type === "custom" && d.status !== "active" && (
+                        <Button size="sm" variant="outline" onClick={() => verify(d)} disabled={verifying === d.id}>
+                          {verifying === d.id ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : <ShieldCheck className="mr-1 h-3 w-3" />}
+                          Verify DNS
+                        </Button>
+                      )}
+                      {d.domain_type === "subdomain" && d.status !== "active" && (
                         <Badge variant="outline" className="text-xs">
-                          <CheckCircle2 className="mr-1 h-3 w-3" />Awaiting verification
+                          <CheckCircle2 className="mr-1 h-3 w-3" />Awaiting activation
                         </Badge>
                       )}
                       {d.status === "active" && !d.is_primary && (
@@ -263,10 +285,17 @@ export default function AppDomains() {
                         </tbody>
                       </table>
                       <p className="text-muted-foreground">
-                        DNS can take up to 72h to propagate. SSL is provisioned automatically once
-                        verified.
+                        After adding both records, click <strong>Verify DNS</strong>. SSL is
+                        provisioned by the platform after verification — status stays
+                        <em> pending</em> until the certificate is issued.
                       </p>
                     </div>
+                  )}
+                  {d.status === "active" && d.domain_type === "custom" && (
+                    <p className="text-xs text-muted-foreground">
+                      SSL: <span className="capitalize">{d.ssl_status}</span>
+                      {d.ssl_status === "pending" && " — certificate issuance in progress"}
+                    </p>
                   )}
                 </div>
               ))}

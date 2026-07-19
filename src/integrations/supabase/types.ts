@@ -885,6 +885,11 @@ export type Database = {
         Args: { _org_id: string; _user_id: string }
         Returns: boolean
       }
+      mark_domain_check: {
+        Args: { _domain_id: string; _status: string }
+        Returns: undefined
+      }
+      mark_domain_verified: { Args: { _domain_id: string }; Returns: undefined }
       my_attorney_ids: { Args: never; Returns: string[] }
       org_is_compliance_ready: { Args: { _org_id: string }; Returns: boolean }
       respond_to_referral: {
