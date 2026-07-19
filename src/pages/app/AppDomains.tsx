@@ -224,10 +224,10 @@ export default function AppDomains() {
                       {d.is_primary && <Badge variant="outline">Primary</Badge>}
                     </div>
                     <div className="flex gap-2 shrink-0">
-                      {d.status !== "active" && d.domain_type === "custom" && (
-                        <Button size="sm" variant="outline" onClick={() => verify(d)}>
-                          <CheckCircle2 className="mr-1 h-4 w-4" />Verify
-                        </Button>
+                      {d.status !== "active" && (
+                        <Badge variant="outline" className="text-xs">
+                          <CheckCircle2 className="mr-1 h-3 w-3" />Awaiting verification
+                        </Badge>
                       )}
                       {d.status === "active" && !d.is_primary && (
                         <Button size="sm" variant="outline" onClick={() => setPrimary(d)}>
