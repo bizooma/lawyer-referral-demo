@@ -123,6 +123,10 @@ export default function AppSettings() {
     );
   }
 
+  const orgTier = activeMembership?.organization.plan_tier ?? "local_bar";
+  const { tier: planTier } = useOrgPlan(activeOrgId, orgTier);
+  const brandingAllowed = planHasFeature(planTier, "custom_branding");
+
   return (
     <div className="space-y-6 max-w-3xl">
       <div>
@@ -132,6 +136,8 @@ export default function AppSettings() {
           pages, and the embeddable intake widget.
         </p>
       </div>
+
+      {activeOrgId && <PlanCard orgId={activeOrgId} tierCode={orgTier} />}
 
       <Card>
         <CardHeader>
