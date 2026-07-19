@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate, Navigate } from "react-router-dom";
-import { LayoutDashboard, Users, Scale, Settings, LogOut, Building2, Globe } from "lucide-react";
+import { LayoutDashboard, Users, Scale, Settings, LogOut, Building2, Globe, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -16,6 +16,7 @@ const navigation = [
   { name: "Attorneys", href: "/app/attorneys", icon: Users },
   { name: "Matching Rules", href: "/app/matching", icon: Scale },
   { name: "Domains", href: "/app/domains", icon: Globe },
+  { name: "Compliance", href: "/app/compliance", icon: ShieldCheck, adminOnly: true },
   { name: "Settings", href: "/app/settings", icon: Settings },
 ];
 

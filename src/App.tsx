@@ -94,6 +94,7 @@ const App = () => (
                   <Route path="/app/attorneys" element={<AppAttorneys />} />
                   <Route path="/app/matching" element={<AppMatching />} />
                   <Route path="/app/domains" element={<AppDomains />} />
+                  <Route path="/app/compliance" element={<AppCompliance />} />
                   <Route path="/app/settings" element={<AppSettings />} />
                 </Route>
 
