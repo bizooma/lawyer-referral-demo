@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate, Navigate } from "react-router-dom";
-import { LayoutDashboard, Users, Scale, Settings, LogOut, Building2, Globe, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, Users, Scale, Settings, LogOut, Building2, Globe, ShieldCheck, FileText, Send, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -13,8 +13,11 @@ import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Dashboard", href: "/app", end: true, icon: LayoutDashboard },
+  { name: "Intakes", href: "/app/intakes", icon: FileText },
   { name: "Attorneys", href: "/app/attorneys", icon: Users },
   { name: "Matching Rules", href: "/app/matching", icon: Scale },
+  { name: "Referrals", href: "/app/referrals", icon: Send },
+  { name: "Reports", href: "/app/reports", icon: BarChart3 },
   { name: "Domains", href: "/app/domains", icon: Globe },
   { name: "Compliance", href: "/app/compliance", icon: ShieldCheck, adminOnly: true },
   { name: "Settings", href: "/app/settings", icon: Settings },

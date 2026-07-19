@@ -34,6 +34,10 @@ import AppMatching from "./pages/app/AppMatching";
 import AppSettings from "./pages/app/AppSettings";
 import AppDomains from "./pages/app/AppDomains";
 import AppCompliance from "./pages/app/AppCompliance";
+import AppIntakes from "./pages/app/AppIntakes";
+import AppIntakeDetail from "./pages/app/AppIntakeDetail";
+import AppReferrals from "./pages/app/AppReferrals";
+import AppReports from "./pages/app/AppReports";
 // Demo - Staff
 import DemoLogin from "./pages/demo/DemoLogin";
 import Dashboard from "./pages/demo/Dashboard";
@@ -92,7 +96,11 @@ const App = () => (
                 <Route element={<RequireAuth><AppLayout /></RequireAuth>}>
                   <Route path="/app" element={<AppDashboard />} />
                   <Route path="/app/attorneys" element={<AppAttorneys />} />
+                  <Route path="/app/intakes" element={<AppIntakes />} />
+                  <Route path="/app/intakes/:id" element={<AppIntakeDetail />} />
                   <Route path="/app/matching" element={<AppMatching />} />
+                  <Route path="/app/referrals" element={<AppReferrals />} />
+                  <Route path="/app/reports" element={<AppReports />} />
                   <Route path="/app/domains" element={<AppDomains />} />
                   <Route path="/app/compliance" element={<AppCompliance />} />
                   <Route path="/app/settings" element={<AppSettings />} />

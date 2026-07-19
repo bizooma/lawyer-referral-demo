@@ -8,28 +8,41 @@ import { Users, FileText, Scale, ArrowRight, AlertTriangle } from "lucide-react"
 
 interface Counts {
   attorneys: number;
-  intakes: number;
-  matchingRules: number;
+  intakesNew: number;
+  intakesReferred: number;
+  intakesClosed: number;
+  referralsPending: number;
+  referralsAccepted: number;
 }
 
 export default function AppDashboard() {
   const { activeMembership, activeOrgId } = useAuth();
-  const [counts, setCounts] = useState<Counts>({ attorneys: 0, intakes: 0, matchingRules: 0 });
+  const [counts, setCounts] = useState<Counts>({ attorneys: 0, intakesNew: 0, intakesReferred: 0, intakesClosed: 0, referralsPending: 0, referralsAccepted: 0 });
   const [loading, setLoading] = useState(true);
   const [complianceReady, setComplianceReady] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (!activeOrgId) return;
     setLoading(true);
+    const c = (col: string, val: string) =>
+      supabase.from("intakes").select("id", { count: "exact", head: true }).eq("organization_id", activeOrgId).eq(col, val);
+    const r = (val: string) =>
+      supabase.from("referral_responses").select("id", { count: "exact", head: true }).eq("organization_id", activeOrgId).eq("status", val as any);
     Promise.all([
       supabase.from("attorneys").select("id", { count: "exact", head: true }).eq("organization_id", activeOrgId),
-      supabase.from("intakes").select("id", { count: "exact", head: true }).eq("organization_id", activeOrgId),
-      supabase.from("matching_rules").select("id", { count: "exact", head: true }).eq("organization_id", activeOrgId),
-    ]).then(([a, i, m]) => {
+      c("status", "new"),
+      c("status", "referred"),
+      c("status", "closed"),
+      r("pending"),
+      r("accepted"),
+    ]).then(([a, iN, iR, iC, rP, rA]) => {
       setCounts({
         attorneys: a.count ?? 0,
-        intakes: i.count ?? 0,
-        matchingRules: m.count ?? 0,
+        intakesNew: iN.count ?? 0,
+        intakesReferred: iR.count ?? 0,
+        intakesClosed: iC.count ?? 0,
+        referralsPending: rP.count ?? 0,
+        referralsAccepted: rA.count ?? 0,
       });
       setLoading(false);
     });
@@ -40,8 +53,11 @@ export default function AppDashboard() {
 
   const cards = [
     { label: "Panel Attorneys", value: counts.attorneys, icon: Users, href: "/app/attorneys" },
-    { label: "Intakes", value: counts.intakes, icon: FileText, href: "/app/attorneys" },
-    { label: "Matching Rules", value: counts.matchingRules, icon: Scale, href: "/app/matching" },
+    { label: "New Intakes", value: counts.intakesNew, icon: FileText, href: "/app/intakes" },
+    { label: "Referred", value: counts.intakesReferred, icon: Scale, href: "/app/referrals" },
+    { label: "Referrals Pending", value: counts.referralsPending, icon: Scale, href: "/app/referrals" },
+    { label: "Referrals Accepted", value: counts.referralsAccepted, icon: Scale, href: "/app/referrals" },
+    { label: "Closed Intakes", value: counts.intakesClosed, icon: FileText, href: "/app/intakes" },
   ];
 
   return (
