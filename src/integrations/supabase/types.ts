@@ -72,15 +72,20 @@ export type Database = {
           excluded_flags: string[] | null
           firm_name: string | null
           id: string
+          in_good_standing: boolean
+          insurance_carrier: string | null
+          insurance_coverage_amount: number | null
           is_active: boolean | null
           languages: string[] | null
           last_assigned_date: string | null
+          max_active_referrals: number
           name: string
           notes: string | null
           organization_id: string | null
           phone: string | null
           practice_areas: Database["public"]["Enums"]["practice_area"][]
           updated_at: string | null
+          years_experience: number | null
         }
         Insert: {
           bar_number: string
@@ -91,15 +96,20 @@ export type Database = {
           excluded_flags?: string[] | null
           firm_name?: string | null
           id?: string
+          in_good_standing?: boolean
+          insurance_carrier?: string | null
+          insurance_coverage_amount?: number | null
           is_active?: boolean | null
           languages?: string[] | null
           last_assigned_date?: string | null
+          max_active_referrals?: number
           name: string
           notes?: string | null
           organization_id?: string | null
           phone?: string | null
           practice_areas: Database["public"]["Enums"]["practice_area"][]
           updated_at?: string | null
+          years_experience?: number | null
         }
         Update: {
           bar_number?: string
@@ -110,15 +120,20 @@ export type Database = {
           excluded_flags?: string[] | null
           firm_name?: string | null
           id?: string
+          in_good_standing?: boolean
+          insurance_carrier?: string | null
+          insurance_coverage_amount?: number | null
           is_active?: boolean | null
           languages?: string[] | null
           last_assigned_date?: string | null
+          max_active_referrals?: number
           name?: string
           notes?: string | null
           organization_id?: string | null
           phone?: string | null
           practice_areas?: Database["public"]["Enums"]["practice_area"][]
           updated_at?: string | null
+          years_experience?: number | null
         }
         Relationships: [
           {
@@ -744,6 +759,24 @@ export type Database = {
         Args: { _org_id: string }
         Returns: undefined
       }
+      attorney_active_referral_count: {
+        Args: { _attorney_id: string }
+        Returns: number
+      }
+      create_intake: {
+        Args: {
+          _area_of_law: Database["public"]["Enums"]["practice_area"]
+          _caller_email: string
+          _caller_name: string
+          _caller_phone: string
+          _county: string
+          _language_preference: string
+          _narrative: string
+          _org_id: string
+          _urgency: string
+        }
+        Returns: string
+      }
       create_organization_with_admin: {
         Args: {
           _contact_email?: string
@@ -787,6 +820,19 @@ export type Database = {
         Returns: boolean
       }
       org_is_compliance_ready: { Args: { _org_id: string }; Returns: boolean }
+      send_referral: {
+        Args: { _attorney_id: string; _intake_id: string }
+        Returns: string
+      }
+      update_referral_outcome: {
+        Args: {
+          _close_intake?: boolean
+          _notes?: string
+          _referral_id: string
+          _status: Database["public"]["Enums"]["referral_status"]
+        }
+        Returns: undefined
+      }
       user_org_ids: { Args: { _user_id: string }; Returns: string[] }
     }
     Enums: {
@@ -806,7 +852,12 @@ export type Database = {
         | "estate_probate"
         | "immigration"
         | "business"
-      referral_status: "pending" | "accepted" | "declined" | "contacted"
+      referral_status:
+        | "pending"
+        | "accepted"
+        | "declined"
+        | "contacted"
+        | "closed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -952,7 +1003,13 @@ export const Constants = {
         "immigration",
         "business",
       ],
-      referral_status: ["pending", "accepted", "declined", "contacted"],
+      referral_status: [
+        "pending",
+        "accepted",
+        "declined",
+        "contacted",
+        "closed",
+      ],
     },
   },
 } as const
