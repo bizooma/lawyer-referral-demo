@@ -94,7 +94,7 @@ export function AppLayout() {
         </div>
 
         <nav className="flex-1 p-4 space-y-1">
-          {navigation.map((item) => (
+          {navigation.filter((item) => !item.adminOnly || activeMembership?.role === "program_admin").map((item) => (
             <NavLink
               key={item.name}
               to={item.href}
