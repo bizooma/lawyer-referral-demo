@@ -140,6 +140,8 @@ export default function AppReports() {
               }
             </CardContent>
           </Card>
+          </>
+          )}
         </>
       )}
     </div>
