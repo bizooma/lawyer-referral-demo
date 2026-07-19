@@ -285,10 +285,17 @@ export default function AppDomains() {
                         </tbody>
                       </table>
                       <p className="text-muted-foreground">
-                        DNS can take up to 72h to propagate. SSL is provisioned automatically once
-                        verified.
+                        After adding both records, click <strong>Verify DNS</strong>. SSL is
+                        provisioned by the platform after verification — status stays
+                        <em> pending</em> until the certificate is issued.
                       </p>
                     </div>
+                  )}
+                  {d.status === "active" && d.domain_type === "custom" && (
+                    <p className="text-xs text-muted-foreground">
+                      SSL: <span className="capitalize">{d.ssl_status}</span>
+                      {d.ssl_status === "pending" && " — certificate issuance in progress"}
+                    </p>
                   )}
                 </div>
               ))}
