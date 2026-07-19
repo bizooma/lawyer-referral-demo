@@ -51,6 +51,11 @@ export function AppLayout() {
     return <Navigate to="/app" replace />;
   }
 
+  // Attorneys use the dedicated attorney portal, not the bar-admin app.
+  if (activeMembership?.role === "attorney") {
+    return <Navigate to="/attorney" replace />;
+  }
+
   const handleSignOut = async () => {
     await signOut();
     navigate("/");
