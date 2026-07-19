@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useOrgPlan, planHasFeature } from "@/hooks/useOrgPlan";
+import { UpgradePrompt } from "@/components/app/UpgradePrompt";
 
 interface Report {
   totalIntakes: number;
@@ -14,7 +16,9 @@ interface Report {
 }
 
 export default function AppReports() {
-  const { activeOrgId } = useAuth();
+  const { activeOrgId, activeMembership } = useAuth();
+  const { tier } = useOrgPlan(activeOrgId, activeMembership?.organization.plan_tier ?? "local_bar");
+  const advanced = planHasFeature(tier, "advanced_reports");
   const [report, setReport] = useState<Report | null>(null);
   const [loading, setLoading] = useState(true);
 
