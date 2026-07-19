@@ -62,28 +62,30 @@ export default function AppDomains() {
     if (!activeOrgId || !hostname) return;
     setCreating(true);
     const clean = hostname.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+    // Always insert as pending — DNS/token verification is a platform step, not client-driven.
     const { error } = await supabase.from("organization_domains").insert({
       organization_id: activeOrgId,
       hostname: clean,
       domain_type: type,
-      status: type === "subdomain" ? "active" : "pending",
+      status: "pending",
     });
     setCreating(false);
-    if (error) return toast.error(error.message);
-    toast.success("Domain added");
+    if (error) {
+      if (error.code === "23505" || /duplicate|unique/i.test(error.message)) {
+        return toast.error(`${clean} is already claimed by another organization.`);
+      }
+      return toast.error(error.message);
+    }
+    toast.success("Domain added — pending verification");
     setSubdomain("");
     setCustom("");
     load();
   };
 
-  const verify = async (d: Domain) => {
-    // Stub verification — in production this would call an edge function to check DNS + provision SSL.
-    const { error } = await supabase
-      .from("organization_domains")
-      .update({ status: "active", ssl_status: "issued", last_checked_at: new Date().toISOString() })
-      .eq("id", d.id);
+  const remove = async (id: string) => {
+    if (!confirm("Remove this domain?")) return;
+    const { error } = await supabase.from("organization_domains").delete().eq("id", id);
     if (error) return toast.error(error.message);
-    toast.success("Domain verified");
     load();
   };
 
