@@ -170,6 +170,19 @@ export default function AppSettings() {
                 <Input id="support" placeholder="https://…" value={form.support_url} onChange={(e) => setForm({ ...form, support_url: e.target.value })} />
               </div>
 
+              {!brandingAllowed && (
+                <div className="rounded-md border border-dashed p-4 bg-muted/40 flex items-start gap-3">
+                  <Lock className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div className="flex-1 text-sm">
+                    <p className="font-medium">Custom branding is a Regional or Statewide feature</p>
+                    <p className="text-muted-foreground">
+                      Upload a logo/favicon and set custom colors on a higher plan.{" "}
+                      <Link to="/contact" className="underline">Contact us to upgrade</Link>.
+                    </p>
+                  </div>
+                </div>
+              )}
+              <fieldset disabled={!brandingAllowed} className={!brandingAllowed ? "opacity-60 pointer-events-none" : ""}>
               {/* Logo */}
               <div className="space-y-2">
                 <Label>Logo</Label>
