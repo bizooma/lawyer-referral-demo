@@ -7,7 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Save, Upload, X } from "lucide-react";
+import { Save, Upload, X, Lock } from "lucide-react";
+import { PlanCard } from "@/components/app/PlanCard";
+import { useOrgPlan, planHasFeature } from "@/hooks/useOrgPlan";
+import { Link } from "react-router-dom";
 
 type FormState = {
   name: string;
