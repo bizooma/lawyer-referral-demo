@@ -97,6 +97,13 @@ export default function AppReports() {
             <Breakdown title="Intakes by County" data={report.intakesByCounty} />
           </div>
 
+          {!advanced ? (
+            <UpgradePrompt
+              title="Advanced analytics is a Regional or Statewide feature"
+              description="Weekly referral volume trends and attorney performance breakdowns are available on higher plans."
+            />
+          ) : (
+          <>
           <Card>
             <CardHeader><CardTitle>Referral Volume by Week</CardTitle></CardHeader>
             <CardContent>
