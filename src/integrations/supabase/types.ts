@@ -653,6 +653,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_organization_with_admin: {
+        Args: {
+          _contact_email?: string
+          _name: string
+          _plan_tier?: string
+          _slug: string
+        }
+        Returns: string
+      }
       get_branding_by_host: {
         Args: { _host: string }
         Returns: {
@@ -677,6 +686,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_demo_org: { Args: { _org_id: string }; Returns: boolean }
       is_org_member: {
         Args: { _org_id: string; _user_id: string }
         Returns: boolean
