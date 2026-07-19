@@ -39,6 +39,7 @@ export default function AppDomains() {
   const [subdomain, setSubdomain] = useState("");
   const [custom, setCustom] = useState("");
   const [creating, setCreating] = useState(false);
+  const [verifying, setVerifying] = useState<string | null>(null);
 
   const load = async () => {
     if (!activeOrgId) return;
