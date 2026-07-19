@@ -1,5 +1,7 @@
-import { Outlet, NavLink, useNavigate, Navigate } from "react-router-dom";
-import { LayoutDashboard, Users, Scale, Settings, LogOut, Building2, Globe, ShieldCheck, FileText, Send, BarChart3 } from "lucide-react";
+import { Outlet, NavLink, useNavigate, Navigate, Link } from "react-router-dom";
+import { LayoutDashboard, Users, Scale, Settings, LogOut, Building2, Globe, ShieldCheck, FileText, Send, BarChart3, Shield } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -26,6 +28,14 @@ const navigation = [
 export function AppLayout() {
   const { user, memberships, activeMembership, activeOrgId, setActiveOrgId, signOut } = useAuth();
   const navigate = useNavigate();
+  const [isPlatformAdmin, setIsPlatformAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    (supabase as any).rpc("is_platform_admin").then(({ data }: { data: boolean }) => {
+      setIsPlatformAdmin(!!data);
+    });
+  }, [user]);
 
   // No org yet? Show a guided onboarding nudge.
   if (memberships.length === 0) {
@@ -120,6 +130,15 @@ export function AppLayout() {
               {item.name}
             </NavLink>
           ))}
+          {isPlatformAdmin && (
+            <Link
+              to="/platform"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-primary-foreground/80 hover:bg-primary-foreground/10"
+            >
+              <Shield className="h-5 w-5" />
+              Platform Console
+            </Link>
+          )}
         </nav>
 
         <div className="p-4 border-t border-primary-foreground/20">

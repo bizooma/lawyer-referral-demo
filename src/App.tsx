@@ -47,6 +47,8 @@ import RealAttorneyReferrals from "./pages/attorney/AttorneyReferrals";
 import RealAttorneyProfile from "./pages/attorney/AttorneyProfile";
 import RealAttorneyAvailability from "./pages/attorney/AttorneyAvailability";
 import AcceptInvite from "./pages/attorney/AcceptInvite";
+// Platform admin console
+import Platform from "./pages/platform/Platform";
 // Demo - Staff
 import DemoLogin from "./pages/demo/DemoLogin";
 import Dashboard from "./pages/demo/Dashboard";
@@ -121,6 +123,9 @@ const App = () => (
 
                 {/* Attorney invite accept (public, but prompts login) */}
                 <Route path="/accept-invite" element={<AcceptInvite />} />
+
+                {/* Platform admin console (Bizooma-only) */}
+                <Route path="/platform" element={<RequireAuth><Platform /></RequireAuth>} />
 
                 {/* Real attorney portal */}
                 <Route element={<RequireAuth><AttorneyPortalLayout /></RequireAuth>}>
