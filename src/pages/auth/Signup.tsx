@@ -38,32 +38,28 @@ export default function Signup() {
         },
       });
       if (signUpError) throw signUpError;
-      const userId = signUpData.user?.id;
-      if (!userId) throw new Error("Signup did not return a user");
+      if (!signUpData.session) {
+        toast.success("Check your email to confirm your account, then sign in to finish setup.");
+        navigate("/login");
+        return;
+      }
 
-      // 2. Create the organization
+      // 2. Create the org + grant program_admin atomically via SECURITY DEFINER RPC.
+      //    Prevents any client from self-granting a role on an arbitrary org.
       const baseSlug = slugify(orgName) || `org-${Date.now()}`;
-      const { data: org, error: orgError } = await supabase
-        .from("organizations")
-        .insert({
-          name: orgName,
-          slug: `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`,
-          contact_email: email,
-          plan_tier: "local_bar",
-        })
-        .select()
-        .single();
-      if (orgError) throw orgError;
+      const slug = `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`;
+      const { data: newOrgId, error: rpcError } = await supabase.rpc(
+        "create_organization_with_admin",
+        {
+          _name: orgName,
+          _slug: slug,
+          _contact_email: email,
+          _plan_tier: "local_bar",
+        }
+      );
+      if (rpcError) throw rpcError;
 
-      // 3. Assign the user as program_admin of that org
-      const { error: roleError } = await supabase.from("user_roles").insert({
-        user_id: userId,
-        organization_id: org.id,
-        role: "program_admin",
-      });
-      if (roleError) throw roleError;
-
-      localStorage.setItem("active_org_id", org.id);
+      if (newOrgId) localStorage.setItem("active_org_id", newOrgId as string);
       toast.success(`Welcome — ${orgName} is ready`);
       navigate("/app");
     } catch (err) {

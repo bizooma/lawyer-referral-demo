@@ -62,28 +62,23 @@ export default function AppDomains() {
     if (!activeOrgId || !hostname) return;
     setCreating(true);
     const clean = hostname.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+    // Always insert as pending — DNS/token verification is a platform step, not client-driven.
     const { error } = await supabase.from("organization_domains").insert({
       organization_id: activeOrgId,
       hostname: clean,
       domain_type: type,
-      status: type === "subdomain" ? "active" : "pending",
+      status: "pending",
     });
     setCreating(false);
-    if (error) return toast.error(error.message);
-    toast.success("Domain added");
+    if (error) {
+      if (error.code === "23505" || /duplicate|unique/i.test(error.message)) {
+        return toast.error(`${clean} is already claimed by another organization.`);
+      }
+      return toast.error(error.message);
+    }
+    toast.success("Domain added — pending verification");
     setSubdomain("");
     setCustom("");
-    load();
-  };
-
-  const verify = async (d: Domain) => {
-    // Stub verification — in production this would call an edge function to check DNS + provision SSL.
-    const { error } = await supabase
-      .from("organization_domains")
-      .update({ status: "active", ssl_status: "issued", last_checked_at: new Date().toISOString() })
-      .eq("id", d.id);
-    if (error) return toast.error(error.message);
-    toast.success("Domain verified");
     load();
   };
 
@@ -93,6 +88,7 @@ export default function AppDomains() {
     if (error) return toast.error(error.message);
     load();
   };
+
 
   const setPrimary = async (d: Domain) => {
     if (!activeOrgId) return;
@@ -228,10 +224,10 @@ export default function AppDomains() {
                       {d.is_primary && <Badge variant="outline">Primary</Badge>}
                     </div>
                     <div className="flex gap-2 shrink-0">
-                      {d.status !== "active" && d.domain_type === "custom" && (
-                        <Button size="sm" variant="outline" onClick={() => verify(d)}>
-                          <CheckCircle2 className="mr-1 h-4 w-4" />Verify
-                        </Button>
+                      {d.status !== "active" && (
+                        <Badge variant="outline" className="text-xs">
+                          <CheckCircle2 className="mr-1 h-3 w-3" />Awaiting verification
+                        </Badge>
                       )}
                       {d.status === "active" && !d.is_primary && (
                         <Button size="sm" variant="outline" onClick={() => setPrimary(d)}>
