@@ -119,6 +119,9 @@ export type Database = {
       attorneys: {
         Row: {
           bar_number: string
+          bar_status: string | null
+          bar_verified_at: string | null
+          bar_verified_name: string | null
           capacity_status: string | null
           counties: string[]
           created_at: string | null
@@ -144,6 +147,9 @@ export type Database = {
         }
         Insert: {
           bar_number: string
+          bar_status?: string | null
+          bar_verified_at?: string | null
+          bar_verified_name?: string | null
           capacity_status?: string | null
           counties: string[]
           created_at?: string | null
@@ -169,6 +175,9 @@ export type Database = {
         }
         Update: {
           bar_number?: string
+          bar_status?: string | null
+          bar_verified_at?: string | null
+          bar_verified_name?: string | null
           capacity_status?: string | null
           counties?: string[]
           created_at?: string | null
