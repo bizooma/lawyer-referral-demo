@@ -66,11 +66,11 @@ const complianceFeatures = [
 const ethicsFaqs = [
   {
     question: "Does Lawyer Referral Program comply with ABA Model Rule 7.2?",
-    answer: "The platform is designed with ABA Model Rule 7.2 compliance considerations in mind. It supports proper fee structures, avoids improper fee-sharing, and provides the transparency needed for oversight. However, ultimate compliance responsibility rests with the operating bar association."
+    answer: "The platform is built with ABA Model Rule 7.2 considerations in mind: it supports configurable fee structures, avoids fee-sharing arrangements, and records referral activity with timestamps and the acting user so your program's decisions can be reviewed. It does not certify compliance — ultimate compliance responsibility rests with the operating bar association."
   },
   {
     question: "Who owns the data in the system?",
-    answer: "Your organization owns all data. We act as a data processor, not a data owner. You can export your data at any time in standard formats, and we never use client information for marketing or share it with third parties."
+    answer: "Your organization owns all data. We act as a data processor, not a data owner, and we never use client information for marketing or share it with third parties."
   },
   {
     question: "How do you prevent fee-sharing concerns?",
@@ -82,7 +82,7 @@ const ethicsFaqs = [
   },
   {
     question: "What audit capabilities are available?",
-    answer: "Every action in the system is logged with timestamps, user attribution, and detailed context. You can generate audit reports for any time period, review individual intake histories, and export compliance documentation as needed for oversight reviews."
+    answer: "Referrals, attorney responses, and status changes are stored with timestamps and the acting user, and intake histories can be reviewed inside the app. That record makes your program's activity reconstructable for oversight reviews."
   }
 ];
 
