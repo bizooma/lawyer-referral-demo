@@ -116,9 +116,8 @@ export function MarketingFooter() {
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} Lawyer Referral Program™. All rights reserved.
             </p>
-            </div>
-
           </div>
+
           <p className="mt-4 text-xs text-muted-foreground text-center">
             This platform is not a law firm and does not provide legal advice. The Lawyer Referral Program 
             is a service that connects individuals with licensed attorneys. Attorney participation is 
