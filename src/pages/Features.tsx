@@ -20,7 +20,6 @@ import {
   ArrowRight,
   CheckCircle,
   Settings,
-  FileText,
   Bell,
   Lock
 } from "lucide-react";
