@@ -27,7 +27,7 @@ import {
 const steps = [
   { icon: FileText, title: "Intake", description: "Capture caller information with a guided workflow" },
   { icon: Users, title: "Match", description: "Smart matching based on practice area, location & availability" },
-  { icon: Scale, title: "Refer", description: "Send referrals via email, SMS, or print letter" },
+  { icon: Scale, title: "Refer", description: "Send referrals via email or print letter" },
   { icon: BarChart3, title: "Track", description: "Monitor outcomes and log payments" },
   { icon: Shield, title: "Report", description: "Generate compliance reports and analytics" },
 ];
@@ -240,7 +240,7 @@ export default function Home() {
                   {[
                     "Bar-controlled matching and referral rules",
                     "No fee-sharing arrangements",
-                    "Complete audit trail for every action",
+                    "Timestamped record of referrals and responses",
                     "Configurable disclaimers and disclosures",
                     "Data ownership remains with your organization"
                   ].map((item) => (
