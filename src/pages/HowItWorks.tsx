@@ -54,7 +54,7 @@ const workflowSteps = [
     step: 4,
     icon: Send,
     title: "Send the Referral",
-    description: "Staff select an attorney and send the referral via email, SMS, or printed letter.",
+    description: "Staff select an attorney and send the referral via email or printed letter.",
     details: [
       "One-click referral assignment",
       "Automatic notification to attorney",
@@ -206,7 +206,7 @@ export default function HowItWorks() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl font-bold mb-4">The Five Steps in Brief</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Step one: receive the call. Step two: complete the intake with a guided wizard. Step three: match to attorneys based on your rules. Step four: send the referral via email, SMS, or letter. Step five: track outcomes and generate program activity reports.
+              Step one: receive the call. Step two: complete the intake with a guided wizard. Step three: match to attorneys based on your rules. Step four: send the referral via email or printed letter. Step five: track outcomes and generate program activity reports.
             </p>
           </div>
         </div>

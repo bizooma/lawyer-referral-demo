@@ -26,7 +26,7 @@ const deploymentOptions = [
       "Dedicated intake portal for the public",
       "Staff admin dashboard",
       "SSL certificate included",
-      "99.9% uptime SLA"
+      "Hosted infrastructure with no servers for your team to maintain"
     ]
   },
   {
@@ -48,7 +48,7 @@ const deploymentOptions = [
 
 const infrastructureFeatures = [
   { icon: Server, title: "Fully Managed Hosting", description: "We handle servers, updates, and maintenance" },
-  { icon: Shield, title: "Enterprise Security", description: "SOC 2 compliant infrastructure with encryption" },
+  { icon: Shield, title: "Enterprise Security", description: "Built on Supabase, which maintains SOC 2 Type II certification" },
   { icon: Palette, title: "White-Label Ready", description: "Your branding, your domain, your program" },
 ];
 

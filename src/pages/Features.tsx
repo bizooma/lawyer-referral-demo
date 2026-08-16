@@ -20,7 +20,6 @@ import {
   ArrowRight,
   CheckCircle,
   Settings,
-  FileText,
   Bell,
   Lock
 } from "lucide-react";
@@ -109,8 +108,7 @@ const features = [
 
 const additionalFeatures = [
   { icon: Settings, title: "Customizable Workflows", description: "Tailor the intake process to your program's needs" },
-  { icon: FileText, title: "Document Generation", description: "Auto-generate referral letters and confirmations" },
-  { icon: Bell, title: "Notifications", description: "Email and SMS alerts for attorneys and staff" },
+  { icon: Bell, title: "Notifications", description: "Email alerts for attorneys and staff" },
   { icon: Lock, title: "Role-Based Access", description: "Granular permissions for different user types" },
 ];
 
@@ -120,20 +118,12 @@ const featuresFaqs = [
     answer: "The matching engine evaluates multiple criteria you define: practice area expertise, geographic coverage, language capabilities, current capacity, and any custom eligibility rules. Attorneys are scored and ranked, giving intake staff clear recommendations while maintaining your program's control over final assignments."
   },
   {
-    question: "Can we import our existing attorney roster?",
-    answer: "Yes, we support bulk import from CSV files or can help migrate data from your existing system. The import process validates bar numbers, practice areas, and contact information to ensure data quality."
-  },
-  {
     question: "What reports can we generate?",
     answer: "Pre-built reports include intake volume by practice area, referral outcomes, attorney utilization, payment summaries, and compliance audit logs. All reports can be exported to CSV or PDF, and custom reports can be configured based on your needs."
   },
   {
     question: "How does the payment logging feature work?",
     answer: "For programs that collect referral fees, you can record payment amounts, methods, and dates directly in the intake record. The system tracks payment status and generates payment reports, but does not process actual payments—keeping your existing payment workflows intact."
-  },
-  {
-    question: "Is there an API for integration with other systems?",
-    answer: "Yes, a RESTful API is available for integration with case management systems, CRMs, or custom applications. API access includes authentication, rate limiting, and comprehensive documentation."
   }
 ];
 

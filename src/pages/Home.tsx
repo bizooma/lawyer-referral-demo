@@ -50,7 +50,7 @@ const homeFaqs = [
   },
   {
     question: "How does Lawyer Referral Program work for bar associations?",
-    answer: "Lawyer Referral Program provides the complete infrastructure for running a modern lawyer referral program. It handles caller intake, matches clients with appropriate attorneys based on your rules, sends referrals via email or SMS, tracks outcomes, and generates program activity reports—all while maintaining full bar control over policies."
+    answer: "Lawyer Referral Program provides the complete infrastructure for running a modern lawyer referral program. It handles caller intake, matches clients with appropriate attorneys based on your rules, sends referrals via email, tracks outcomes, and generates program activity reports—all while maintaining full bar control over policies."
   },
   {
     question: "How does Lawyer Referral Program address ethics rules?",
