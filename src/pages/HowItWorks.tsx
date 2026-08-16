@@ -66,11 +66,11 @@ const workflowSteps = [
     step: 5,
     icon: FileCheck,
     title: "Track & Report",
-    description: "Monitor outcomes, log payments, and generate compliance reports.",
+    description: "Monitor outcomes, log payments, and generate program activity reports.",
     details: [
       "Referral outcome tracking",
       "Payment logging (if applicable)",
-      "Audit trail for every action",
+      "Timestamped record of referrals, responses, and status changes",
       "Custom report generation"
     ]
   }
@@ -86,7 +86,7 @@ export default function HowItWorks() {
       />
       <HowToSchema
         name="How to Run a Lawyer Referral Program"
-        description="A streamlined five-step workflow from caller intake to compliance reporting"
+        description="A streamlined five-step workflow from caller intake to program reporting"
         steps={workflowSteps.map(step => ({
           name: step.title,
           text: step.description
@@ -100,7 +100,7 @@ export default function HowItWorks() {
       />
       <WebPageSchema
         name="How Lawyer Referral Matching Works"
-        description="A five-step workflow from caller intake to compliance reporting"
+        description="A five-step workflow from caller intake to program reporting"
         speakableSelectors={[".voice-intro", ".workflow-summary"]}
       />
       
@@ -111,7 +111,7 @@ export default function HowItWorks() {
             How It Works
           </h1>
           <p className="mt-4 text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-            A streamlined workflow from caller intake to compliance reporting
+            A streamlined workflow from caller intake to program reporting
           </p>
         </div>
       </section>
@@ -121,7 +121,7 @@ export default function HowItWorks() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>How does a lawyer referral program work?</strong> When someone needs legal help, they call the bar association. A trained intake specialist captures their information, then the system matches them with a qualified attorney based on practice area, location, and availability. The referral is sent to the attorney, and the program tracks the outcome for compliance reporting.
+              <strong>How does a lawyer referral program work?</strong> When someone needs legal help, they call the bar association. A trained intake specialist captures their information, then the system matches them with a qualified attorney based on practice area, location, and availability. The referral is sent to the attorney, and the program tracks the outcome for program reporting and referral analytics.
             </p>
           </div>
         </div>
@@ -206,7 +206,7 @@ export default function HowItWorks() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl font-bold mb-4">The Five Steps in Brief</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Step one: receive the call. Step two: complete the intake with a guided wizard. Step three: match to attorneys based on your rules. Step four: send the referral via email, SMS, or letter. Step five: track outcomes and generate compliance reports.
+              Step one: receive the call. Step two: complete the intake with a guided wizard. Step three: match to attorneys based on your rules. Step four: send the referral via email, SMS, or letter. Step five: track outcomes and generate program activity reports.
             </p>
           </div>
         </div>

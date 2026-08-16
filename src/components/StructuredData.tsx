@@ -134,7 +134,7 @@ export function ServiceSchema() {
       url: SITE_URL,
     },
     description:
-      "Comprehensive software platform for managing lawyer referral programs, including intake management, attorney matching, compliance reporting, and payment tracking.",
+      "Comprehensive software platform for managing lawyer referral programs, including intake management, attorney matching, program reporting, and payment tracking.",
     areaServed: {
       "@type": "Country",
       name: "United States",
