@@ -46,7 +46,6 @@ const tiers = [
       "Unlimited practice area panels",
       "Enterprise matching engine",
       "Advanced analytics & reporting",
-      "API access for integrations",
       "Dedicated account manager",
       "On-site training available"
     ],
