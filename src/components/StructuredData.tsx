@@ -14,7 +14,7 @@ export function OrganizationSchema() {
       "Modern lawyer referral program software built for bar associations. Streamline intake, matching, and reporting with ethics-aware infrastructure.",
     contactPoint: {
       "@type": "ContactPoint",
-      email: "hello@lawyerreferralprogram.com",
+      email: "joe@bizooma.com",
       contactType: "sales",
       availableLanguage: "English",
     },
@@ -47,9 +47,7 @@ export function SoftwareApplicationSchema() {
     featureList: [
       "Intake Management Dashboard",
       "Smart Attorney Matching",
-      "Compliance Reporting",
       "Payment Logging",
-      "Audit Trail",
       "White-label Deployment",
     ],
   };

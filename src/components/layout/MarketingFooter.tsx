@@ -11,15 +11,9 @@ const footerLinks = {
   ],
   resources: [
     { href: "/ethics", label: "Ethics & Compliance" },
-    { href: "#", label: "Documentation" },
-    { href: "#", label: "API Reference" },
-    { href: "#", label: "Help Center" },
   ],
   company: [
     { href: "/contact", label: "Contact" },
-    { href: "#", label: "About Us" },
-    { href: "#", label: "Careers" },
-    { href: "#", label: "Press" },
   ],
 };
 
@@ -122,18 +116,8 @@ export function MarketingFooter() {
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} Lawyer Referral Program™. All rights reserved.
             </p>
-            <div className="flex gap-6 text-sm text-muted-foreground">
-              <Link to="#" className="hover:text-primary transition-colors">
-                Privacy Policy
-              </Link>
-              <Link to="#" className="hover:text-primary transition-colors">
-                Terms of Service
-              </Link>
-              <Link to="#" className="hover:text-primary transition-colors">
-                Accessibility
-              </Link>
-            </div>
           </div>
+
           <p className="mt-4 text-xs text-muted-foreground text-center">
             This platform is not a law firm and does not provide legal advice. The Lawyer Referral Program 
             is a service that connects individuals with licensed attorneys. Attorney participation is 
