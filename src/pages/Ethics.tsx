@@ -35,8 +35,8 @@ const principles = [
   },
   {
     icon: History,
-    title: "Complete Audit Trail",
-    description: "Every action in the system is logged with timestamps and user attribution. This provides the transparency needed for compliance reviews and oversight."
+    title: "Audit-Ready Data Model",
+    description: "Referrals, responses, and status changes are stored with timestamps and the acting user, so your program's activity is reconstructable for review."
   },
   {
     icon: FileText,
@@ -46,7 +46,7 @@ const principles = [
   {
     icon: Eye,
     title: "Data Ownership",
-    description: "All data belongs to your organization. You can export your data at any time, and we never use client information for marketing or third-party purposes."
+    description: "All data belongs to your organization. We never use client information for marketing or third-party purposes."
   },
   {
     icon: Users,
@@ -58,11 +58,10 @@ const principles = [
 const complianceFeatures = [
   "ABA Model Rule 7.2 compliance considerations built-in",
   "Configurable fee structures (flat fee, sliding scale, or no fee)",
-  "Eligibility verification workflow support",
-  "Geographic jurisdiction enforcement",
-  "Conflict-of-interest flagging capabilities",
-  "Multi-level approval workflows for sensitive cases"
+  "Attorney Credential Fields: Record each panel attorney's bar number, standing, and malpractice coverage, and keep them with the attorney's panel record.",
+  "County-Level Matching: Route referrals by the counties each attorney serves."
 ];
+
 
 const ethicsFaqs = [
   {
