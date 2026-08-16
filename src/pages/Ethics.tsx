@@ -91,7 +91,7 @@ export default function Ethics() {
     <div className="flex flex-col">
       <SEO
         title="Ethics & Compliance for Lawyer Referral Programs"
-        description="Built with bar association ethics requirements at the foundation. ABA Model Rule compliant with configurable policies and audit trails."
+        description="Built with bar association ethics requirements at the foundation. Built with ABA Model Rule 7.2 considerations in mind, with configurable policies and a timestamped record of referrals, responses, and status changes."
         canonical="/ethics"
       />
       <BreadcrumbSchema

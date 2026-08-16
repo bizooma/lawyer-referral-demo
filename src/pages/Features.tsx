@@ -94,8 +94,8 @@ const features = [
   },
   {
     icon: History,
-    title: "Audit Trail",
-    description: "Complete transparency with detailed activity logging.",
+    title: "Audit-Ready Data Model",
+    description: "Referrals, responses, and status changes are stored with timestamps and the acting user, so your program's activity is reconstructable for review.",
     image: "/demo-screenshots/audit.png",
     imageAlt: "Settings page showing organization configuration, matching rules, and notification preferences",
     capabilities: [
@@ -155,7 +155,7 @@ export default function Features() {
       <FAQPageSchema faqs={featuresFaqs} />
       <WebPageSchema
         name="Features - Attorney Matching, Intake & Reporting"
-        description="Powerful features including smart attorney matching, intake wizards, and compliance reporting"
+        description="Powerful features including smart attorney matching, intake wizards, and program reporting"
         speakableSelectors={[".voice-features-intro"]}
       />
       
@@ -176,7 +176,7 @@ export default function Features() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>What features does lawyer referral software need?</strong> Lawyer Referral Program includes six core features: an intake dashboard for managing referral requests, an attorney directory for your panel roster, a matching rules engine for intelligent attorney assignment, payment logging for fee-based programs, comprehensive reporting and export tools, and a complete audit trail for compliance oversight.
+              <strong>What features does lawyer referral software need?</strong> Lawyer Referral Program includes six core features: an intake dashboard for managing referral requests, an attorney directory for your panel roster, a matching rules engine for intelligent attorney assignment, payment logging for fee-based programs, comprehensive reporting and export tools, and a timestamped record of referrals, responses, and status changes for program oversight.
             </p>
           </div>
         </div>

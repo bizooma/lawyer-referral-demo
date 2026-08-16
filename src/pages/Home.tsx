@@ -29,7 +29,7 @@ const steps = [
   { icon: Users, title: "Match", description: "Smart matching based on practice area, location & availability" },
   { icon: Scale, title: "Refer", description: "Send referrals via email or print letter" },
   { icon: BarChart3, title: "Track", description: "Monitor outcomes and log payments" },
-  { icon: Shield, title: "Report", description: "Generate compliance reports and analytics" },
+  { icon: Shield, title: "Report", description: "Generate program activity reports and analytics" },
 ];
 
 const audiences = [
@@ -50,7 +50,7 @@ const homeFaqs = [
   },
   {
     question: "How does Lawyer Referral Program work for bar associations?",
-    answer: "Lawyer Referral Program provides the complete infrastructure for running a modern lawyer referral program. It handles caller intake, matches clients with appropriate attorneys based on your rules, sends referrals via email or SMS, tracks outcomes, and generates compliance reports—all while maintaining full bar control over policies."
+    answer: "Lawyer Referral Program provides the complete infrastructure for running a modern lawyer referral program. It handles caller intake, matches clients with appropriate attorneys based on your rules, sends referrals via email or SMS, tracks outcomes, and generates program activity reports—all while maintaining full bar control over policies."
   },
   {
     question: "Is Lawyer Referral Program compliant with ethics rules?",
@@ -125,7 +125,7 @@ export default function Home() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>What is Lawyer Referral Program?</strong> Lawyer Referral Program is modern lawyer referral software built specifically for bar associations. It streamlines the entire referral process—from capturing caller information, to matching clients with qualified attorneys, to generating compliance reports. The platform is ethics-aware by design, with no fee-sharing arrangements and a timestamped record of referrals and responses.
+              <strong>What is Lawyer Referral Program?</strong> Lawyer Referral Program is modern lawyer referral software built specifically for bar associations. It streamlines the entire referral process—from capturing caller information, to matching clients with qualified attorneys, to generating program activity reports. The platform is ethics-aware by design, with no fee-sharing arrangements and a timestamped record of referrals and responses.
             </p>
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">How It Works</h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              A streamlined five-step workflow from caller intake to compliance reporting
+              A streamlined five-step workflow from caller intake to program reporting
             </p>
           </div>
           <div className="relative">
