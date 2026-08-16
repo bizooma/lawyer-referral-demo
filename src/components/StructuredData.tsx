@@ -37,7 +37,7 @@ export function SoftwareApplicationSchema() {
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web Browser",
     description:
-      "Lawyer referral program management software for bar associations with intake management, attorney matching, and compliance reporting.",
+      "Lawyer referral program management software for bar associations with intake management and attorney matching.",
     offers: {
       "@type": "Offer",
       category: "Subscription",

@@ -54,7 +54,7 @@ const homeFaqs = [
   },
   {
     question: "Is Lawyer Referral Program compliant with ethics rules?",
-    answer: "Lawyer Referral Program is designed with bar association ethics requirements at its foundation. The platform supports ABA Model Rule 7.2 compliance, maintains complete audit trails, avoids fee-sharing arrangements, and allows you to configure all policies and disclaimers to meet your jurisdiction's requirements."
+    answer: "The platform is built with ABA Model Rule 7.2 considerations in mind: it supports configurable fee structures, avoids fee-sharing arrangements, and records referral activity with timestamps and the acting user so your program's decisions can be reviewed. It does not certify compliance — ultimate compliance responsibility rests with the operating bar association."
   },
   {
     question: "Can we customize the referral matching rules?",
@@ -125,7 +125,7 @@ export default function Home() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>What is Lawyer Referral Program?</strong> Lawyer Referral Program is modern lawyer referral software built specifically for bar associations. It streamlines the entire referral process—from capturing caller information, to matching clients with qualified attorneys, to generating compliance reports. The platform is ethics-aware by design, with no fee-sharing arrangements and complete audit trails for every action.
+              <strong>What is Lawyer Referral Program?</strong> Lawyer Referral Program is modern lawyer referral software built specifically for bar associations. It streamlines the entire referral process—from capturing caller information, to matching clients with qualified attorneys, to generating compliance reports. The platform is ethics-aware by design, with no fee-sharing arrangements and a timestamped record of referrals and responses.
             </p>
           </div>
         </div>
