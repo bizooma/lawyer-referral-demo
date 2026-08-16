@@ -53,7 +53,7 @@ const homeFaqs = [
     answer: "Lawyer Referral Program provides the complete infrastructure for running a modern lawyer referral program. It handles caller intake, matches clients with appropriate attorneys based on your rules, sends referrals via email or SMS, tracks outcomes, and generates program activity reports—all while maintaining full bar control over policies."
   },
   {
-    question: "Is Lawyer Referral Program compliant with ethics rules?",
+    question: "How does Lawyer Referral Program address ethics rules?",
     answer: "The platform is built with ABA Model Rule 7.2 considerations in mind: it supports configurable fee structures, avoids fee-sharing arrangements, and records referral activity with timestamps and the acting user so your program's decisions can be reviewed. It does not certify compliance — ultimate compliance responsibility rests with the operating bar association."
   },
   {
