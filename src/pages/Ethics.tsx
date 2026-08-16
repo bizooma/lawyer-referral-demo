@@ -124,7 +124,7 @@ export default function Ethics() {
         <div className="section-container">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-foreground leading-relaxed">
-              <strong>Is lawyer referral software ethics-compliant?</strong> Lawyer Referral Program is designed with bar association ethics requirements at its foundation. The platform maintains no fee-sharing arrangements, provides complete audit trails, and gives you full control over matching rules and disclaimers. Your organization sets the policies—we provide the infrastructure to execute them while maintaining ABA Model Rule compliance considerations.
+              <strong>Is lawyer referral software ethics-compliant?</strong> Lawyer Referral Program is designed with bar association ethics requirements at its foundation. The platform maintains no fee-sharing arrangements, records referral activity with timestamps and the acting user, and gives you full control over matching rules and disclaimers. Your organization sets the policies—we provide the infrastructure to execute them while maintaining ABA Model Rule compliance considerations.
             </p>
           </div>
         </div>
