@@ -48,7 +48,6 @@ const tiers = [
       "Advanced analytics & reporting",
       "API access for integrations",
       "Dedicated account manager",
-      "Custom SLA",
       "On-site training available"
     ],
     cta: "Contact Sales",
