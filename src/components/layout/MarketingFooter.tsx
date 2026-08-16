@@ -11,15 +11,9 @@ const footerLinks = {
   ],
   resources: [
     { href: "/ethics", label: "Ethics & Compliance" },
-    { href: "#", label: "Documentation" },
-    { href: "#", label: "API Reference" },
-    { href: "#", label: "Help Center" },
   ],
   company: [
     { href: "/contact", label: "Contact" },
-    { href: "#", label: "About Us" },
-    { href: "#", label: "Careers" },
-    { href: "#", label: "Press" },
   ],
 };
 
